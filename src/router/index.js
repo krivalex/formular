@@ -4,7 +4,7 @@ const HomePage = () => import('@/pages/HomePage.vue')
 const FormulaPage = () => import('@/pages/FormulaPage.vue')
 
 const LoginPage = () => import('@/pages/LoginPage.vue')
-const RegistrationPage = () => import('@/pages/RegistrationPage.vue')
+const RegistrationPage = () => import('@/pages/RegisterPage.vue')
 
 const ProfilePage = () => import('@/pages/ProfilePage.vue')
 
@@ -31,7 +31,7 @@ const routes = [
     meta: { isAuth: false, trasition: 'fade' },
   },
   {
-    path: '/registration',
+    path: '/register',
     name: 'registration',
     component: RegistrationPage,
     meta: { isAuth: false, trasition: 'fade' },
