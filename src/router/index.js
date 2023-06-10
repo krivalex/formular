@@ -4,7 +4,7 @@ const HomePage = () => import('@/pages/HomePage.vue')
 const FormulaPage = () => import('@/pages/FormulaPage.vue')
 
 const LoginPage = () => import('@/pages/LoginPage.vue')
-const RegistrationPage = () => import('@/pages/RegisterPage.vue')
+const QuitPage = () => import('@/pages/QuitPage.vue')
 
 const ProfilePage = () => import('@/pages/ProfilePage.vue')
 
@@ -31,15 +31,15 @@ const routes = [
     meta: { isAuth: false, trasition: 'fade' },
   },
   {
-    path: '/register',
-    name: 'registration',
-    component: RegistrationPage,
-    meta: { isAuth: false, trasition: 'fade' },
-  },
-  {
     path: '/login',
     name: 'login',
     component: LoginPage,
+    meta: { isAuth: false, trasition: 'fade' },
+  },
+  {
+    path: '/quit',
+    name: 'quit',
+    component: QuitPage,
     meta: { isAuth: false, trasition: 'fade' },
   },
   {
