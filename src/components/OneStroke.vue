@@ -3,6 +3,7 @@
     <input type="text" class="aspect-name" placeholder="Ингридиент" />
     <input type="number" class="norma" />
     <v-select v-model="norma_option" :reduce="(option) => option.value" :options="norma_options" />
+    <i class="fa fa-trash" aria-hidden="true" @click="deleteRow"></i>
   </div>
 </template>
 
@@ -14,6 +15,11 @@ export default {
   name: "one-stroke",
   components: {
     vSelect,
+  },
+  methods: {
+    deleteRow() {
+      this.$emit("delete-row", this.formulaId);
+    },
   },
   setup() {
     return {

@@ -4,7 +4,7 @@
     <my-modal :show="showModal" @:update:model="openModal">
       <input type="text" class="input" placeholder="Название" />
       <div v-for="stroke in strokes" :key="stroke" class="all-aspects">
-        <one-stroke />
+        <one-stroke @:delete:row="deleteRow" />
       </div>
       <div class="stroke-actions">
         <button class="button add-row" @click="addRow">
@@ -44,6 +44,9 @@ export default {
     },
     addRow() {
       this.strokes++;
+    },
+    deleteRow() {
+      this.$emit("delete-row", this.formulaId);
     },
   },
 
