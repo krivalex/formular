@@ -3,8 +3,8 @@
     <i class="fa fa-plus-circle" aria-hidden="true"></i>
     <my-modal :show="showModal" @:update:model="openModal">
       <input type="text" class="input" placeholder="Название" />
-      <div v-for="stroke in strokes" :key="stroke" class="all-aspects">
-        <one-stroke @:delete:row="deleteRow" />
+      <div v-for="stroke in reactiveStrokes" :key="stroke.id" class="all-aspects">
+        <one-stroke v-model:stroke="stroke.id" @:update:stroke="this.$emit('update:stroke', stroke.id)" />
       </div>
       <div class="stroke-actions">
         <button class="button add-row" @click="addRow">
@@ -30,10 +30,15 @@ export default {
     MyModal,
     OneStroke,
   },
+  emits: ["update:show", "update:stroke"],
   data() {
     return {
       showModal: false,
-      strokes: 1,
+      strokes: [
+        {
+          id: 1,
+        },
+      ],
       all_aspects: [],
     };
   },
@@ -43,12 +48,34 @@ export default {
       this.$emit("update:show", true);
     },
     addRow() {
-      this.strokes++;
-    },
-    deleteRow() {
-      this.$emit("delete-row", this.formulaId);
+      this.strokes.push({
+        id: this.strokes.length + 1,
+      });
     },
   },
+  watch: {
+    allStrokes() {
+      this.$emit("update:stroke", this.strokes);
+    },
+  },
+  computed: {
+    reactiveStrokes() {
+      console.log(this.strokes);
+      this.strokes.forEach((stroke) => {
+        if (stroke.id === null) {
+          this.strokes.splice(this.strokes.indexOf(stroke), 1);
+        }
+      });
+
+      let start_id = 1;
+      this.strokes.forEach((stroke) => {
+        stroke.id = start_id;
+        start_id++;
+      });
+      console.log(this.strokes);
+      return this.strokes;
+    }
+  }
 
 }
 

@@ -1,6 +1,7 @@
 <template>
   <div class="aspect">
-    <input type="text" class="aspect-name" placeholder="Ингридиент" />
+    <p class="number">{{ this.stroke }}</p>
+    <input type="text" class="aspect-name" placeholder="Ингредиент" />
     <input type="number" class="norma" />
     <v-select v-model="norma_option" :reduce="(option) => option.value" :options="norma_options" />
     <i class="fa fa-trash" aria-hidden="true" @click="deleteRow"></i>
@@ -16,9 +17,27 @@ export default {
   components: {
     vSelect,
   },
+  props: {
+    stroke: {
+      type: [Number, null],
+      required: true,
+    },
+  },
+  updated() {
+    this.$emit("update:stroke", this.current_stroke);
+  },
+  data() {
+    return {
+      norma_option: null,
+      current_stroke: this.stroke,
+    };
+  },
+  emits: ["update:stroke"],
   methods: {
     deleteRow() {
-      this.$emit("delete-row", this.formulaId);
+      this.current_stroke = null;
+      console.log(this.stroke);
+      this.$emit("update:stroke", this.current_stroke);
     },
   },
   setup() {
