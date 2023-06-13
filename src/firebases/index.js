@@ -1,10 +1,5 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-
-import { createPinia } from 'pinia'
-
 import { initializeApp } from 'firebase/app'
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBJFJU_MkxC3_KHUIkTXIaxeGyho6yu364',
@@ -16,12 +11,7 @@ const firebaseConfig = {
   measurementId: 'G-4997D3GPQ0',
 }
 
-initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig)
+const db = getFirestore(app)
 
-const pinia = createPinia()
-
-const app = createApp(App)
-app.use(router)
-app.use(pinia)
-
-app.mount('#app')
+export { db }

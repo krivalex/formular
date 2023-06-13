@@ -33,7 +33,6 @@ export default {
   methods: {
     deleteRow() {
       this.current_stroke = null;
-      console.log(this.stroke);
       this.$emit("update:stroke", this.current_stroke);
     },
   },

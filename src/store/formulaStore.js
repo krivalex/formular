@@ -1,23 +1,33 @@
 import { defineStore } from 'pinia'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '@/firebases'
 
-// main is the name of the store. It is unique across your application
-// and will appear in devtools
 export const useFormulaStore = defineStore('main', {
   state: () => ({
     formula: null,
     formula_page: null,
     all_formulas: null,
   }),
-  getters: {},
+  getters: {
+    getFormulaPage() {
+      return this.formula_page
+    },
+  },
   actions: {
     setFormula(formula) {
       this.formula = formula
     },
-    getFormula(formulaID) {
+    getFormula() {
       return this.formula
     },
-    getFormulaPage() {
-      return this.formula_page
+    async getFormulaPage() {
+      await getDocs(collection(db, 'formulas')).then((querySnapshot) => {
+        console.log('Total formulas: ', querySnapshot.size)
+        querySnapshot.forEach((doc) => {
+          this.formula_page = doc.data()
+          return this.formula_page
+        })
+      })
     },
     getFormulas() {
       return this.all_formulas
