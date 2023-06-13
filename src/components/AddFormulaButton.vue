@@ -31,6 +31,9 @@ export default {
     OneStroke,
   },
   emits: ["update:show", "update:stroke"],
+  updated() {
+    this.strokes = this.reactiveStrokes;
+  },
   data() {
     return {
       showModal: false,
@@ -60,7 +63,6 @@ export default {
   },
   computed: {
     reactiveStrokes() {
-      console.log(this.strokes);
       this.strokes.forEach((stroke) => {
         if (stroke.id === null) {
           this.strokes.splice(this.strokes.indexOf(stroke), 1);
@@ -72,7 +74,6 @@ export default {
         stroke.id = start_id;
         start_id++;
       });
-      console.log(this.strokes);
       return this.strokes;
     }
   }

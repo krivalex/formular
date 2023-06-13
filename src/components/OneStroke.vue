@@ -23,9 +23,6 @@ export default {
       required: true,
     },
   },
-  updated() {
-    this.$emit("update:stroke", this.current_stroke);
-  },
   data() {
     return {
       norma_option: null,
