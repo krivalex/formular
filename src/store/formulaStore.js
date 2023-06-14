@@ -1,21 +1,34 @@
 import { defineStore } from 'pinia'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, addDoc } from 'firebase/firestore'
 import { db } from '@/firebases'
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 
 export const useFormulaStore = defineStore('main', {
   state: () => ({
     formula: null,
     formula_page: null,
+    uploaded_image: null,
     all_formulas: null,
+    formulaID: null,
   }),
   getters: {
-    getFormulaPage() {
+    getterFormulaPage() {
       return this.formula_page
+    },
+    getterUniqueID() {
+      return this.formulaID
     },
   },
   actions: {
-    setFormula(formula) {
-      this.formula = formula
+    createUniqueId() {
+      console.log('createUniqueId')
+      this.formulaID = '_' + Math.random().toString(36).substr(2, 9)
+      return this.formulaID
+    },
+    async setFormula(formula) {
+      await addDoc(collection(db, 'formulas'), formula).then(() => {
+        console.log('Formula added')
+      })
     },
     getFormula() {
       return this.formula
@@ -31,6 +44,16 @@ export const useFormulaStore = defineStore('main', {
     },
     getFormulas() {
       return this.all_formulas
+    },
+    async setFormulaImage(file) {
+      const storage = getStorage()
+      const storageRef = ref(storage, 'formulas/' + file.name)
+
+      // 'file' comes from the Blob or File API
+      uploadBytes(storageRef, file).then((snapshot) => {
+        console.log('Uploaded a blob or file!')
+        console.log(snapshot)
+      })
     },
   },
 })

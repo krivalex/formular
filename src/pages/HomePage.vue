@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Formula Page</h1>
+    {{ items }}
   </div>
 </template>
 
@@ -17,9 +18,8 @@ export default {
   async mounted() {
     const store = useFormulaStore();
     await store.getFormulaPage().then(() => {
-      console.log(store.formula_page);
+      this.items = store.getterFormulaPage;
     });
-    this.items = store.formula_page;
   },
 
 }

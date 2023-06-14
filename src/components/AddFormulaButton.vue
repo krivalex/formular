@@ -3,6 +3,7 @@
     <i class="fa fa-plus-circle" aria-hidden="true"></i>
     <my-modal :show="showModal" @:update:model="openModal">
       <input type="text" class="input" placeholder="Название" />
+      {{ binaryImage }}
       <div v-for="stroke in reactiveStrokes" :key="stroke.id" class="all-aspects">
         <one-stroke v-model:stroke="stroke.id" @:update:stroke="this.$emit('update:stroke', stroke.id)" />
       </div>
@@ -11,9 +12,12 @@
           <i class="fa fa-plus" aria-hidden="true"></i>
           Добавить строку
         </button>
+        <form enctype="multipart/form-data" method="post">
+          <input @input="convertToBinary" type="file" name="file" />
+        </form>
       </div>
       <div class="final-actions">
-        <button class="button is-primary">Добавить</button>
+        <button @click="addFormula" class="button is-primary">Добавить</button>
         <button class="button is-danger">Отмена</button>
       </div>
     </my-modal>
@@ -23,6 +27,7 @@
 <script>
 import MyModal from '@/components/UI/MyModal.vue';
 import OneStroke from '@/components/OneStroke.vue';
+import { useFormulaStore } from "@/store/formulaStore";
 
 export default {
   name: "add-formula-button",
@@ -37,6 +42,9 @@ export default {
   data() {
     return {
       showModal: false,
+      name: "",
+      image: "",
+      binaryImage: "",
       strokes: [
         {
           id: 1,
@@ -53,6 +61,34 @@ export default {
     addRow() {
       this.strokes.push({
         id: this.strokes.length + 1,
+      });
+    },
+    convertToBinary(e) {
+      this.image = e.target.files[0];
+
+    },
+    async addFormula() {
+      const store = useFormulaStore();
+      store.createUniqueId
+      const formulaId = store.getterUniqueID
+
+      const data = {
+        formulaId: formulaId,
+        name: this.name,
+        strokes: this.strokes,
+      };
+      // this.image.name = formulaId
+
+      await store.setFormula(data).then(() => {
+        store.getFormulaPage().then(() => {
+          this.items = store.getterFormulaPage;
+        });
+
+        store.setFormulaImage(this.image)
+
+        this.name = "";
+        this.strokes = [];
+        this.showModal = false;
       });
     },
   },
