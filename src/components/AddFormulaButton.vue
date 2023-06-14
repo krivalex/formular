@@ -65,30 +65,23 @@ export default {
     },
     convertToBinary(e) {
       this.image = e.target.files[0];
-
     },
     async addFormula() {
       const store = useFormulaStore();
       store.createUniqueId
-      const formulaId = store.getterUniqueID
 
-      const data = {
-        formulaId: formulaId,
-        name: this.name,
-        strokes: this.strokes,
-      };
-      // this.image.name = formulaId
-
-      await store.setFormula(data).then(() => {
-        store.getFormulaPage().then(() => {
-          this.items = store.getterFormulaPage;
+      await store.setFormulaImage(this.image).then(() => {
+        const data = {
+          formulaId: store.getterUniqueID,
+          name: this.name,
+          strokes: this.strokes,
+          image: store.getterImageLink,
+        };
+        store.setFormula(data).then(() => {
+          this.name = "";
+          this.strokes = [];
+          this.showModal = false;
         });
-
-        store.setFormulaImage(this.image)
-
-        this.name = "";
-        this.strokes = [];
-        this.showModal = false;
       });
     },
   },

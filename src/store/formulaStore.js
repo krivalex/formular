@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
 import { db } from '@/firebases'
-import { getStorage, ref, uploadBytes } from 'firebase/storage'
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 export const useFormulaStore = defineStore('main', {
   state: () => ({
@@ -10,6 +10,7 @@ export const useFormulaStore = defineStore('main', {
     uploaded_image: null,
     all_formulas: null,
     formulaID: null,
+    image_link: null,
   }),
   getters: {
     getterFormulaPage() {
@@ -17,6 +18,9 @@ export const useFormulaStore = defineStore('main', {
     },
     getterUniqueID() {
       return this.formulaID
+    },
+    getterImageLink() {
+      return this.image_link
     },
   },
   actions: {
@@ -49,11 +53,23 @@ export const useFormulaStore = defineStore('main', {
       const storage = getStorage()
       const storageRef = ref(storage, 'formulas/' + file.name)
 
-      // 'file' comes from the Blob or File API
-      uploadBytes(storageRef, file).then((snapshot) => {
-        console.log('Uploaded a blob or file!')
-        console.log(snapshot)
-      })
+      uploadBytes(storageRef, file)
+        .then((snapshot) => {
+          console.log('Файл успешно загружен!')
+          console.log('snapshot', snapshot)
+
+          getDownloadURL(storageRef)
+            .then((downloadURL) => {
+              console.log('Ссылка на загруженный файл:', downloadURL)
+              this.image_link = downloadURL
+            })
+            .catch((error) => {
+              console.error('Ошибка получения ссылки на загруженный файл:', error)
+            })
+        })
+        .catch((error) => {
+          console.error('Ошибка загрузки файла:', error)
+        })
     },
   },
 })
