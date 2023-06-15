@@ -10,7 +10,6 @@
 
 <script>
 import vSelect from "vue-select";
-// import { ref } from "vue";
 import { watch } from "vue";
 import "vue-select/dist/vue-select.css";
 import { useCreatedFormulaStore } from "@/store/createdFormulaStore";

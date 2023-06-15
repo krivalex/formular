@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Formula Page</h1>
-    {{ items }}
   </div>
 </template>
 
