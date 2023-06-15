@@ -1,6 +1,6 @@
 <template>
   <div class="profile" v-if="user">
-    <div class="profile__circle">
+    <div class="profile-circle">
       <img :src="user.photoURL" alt="profile" />
     </div>
   </div>
@@ -17,3 +17,6 @@ export default {
 }
 
 </script>
+
+<style lang="scss">
+</style>

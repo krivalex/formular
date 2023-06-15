@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <section id="home-page">
     <h1>Formula Page</h1>
     <formula-list :formulas="formulas" />
-  </div>
+  </section>
 </template>
 
 <script>
@@ -29,3 +29,7 @@ export default {
 }
 
 </script>
+
+<style lang="scss" scoped>
+</style>
+
