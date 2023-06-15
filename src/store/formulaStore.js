@@ -6,7 +6,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 export const useFormulaStore = defineStore('main', {
   state: () => ({
     formula: null,
-    formula_page: null,
+    formula_page: [],
     uploaded_image: null,
     all_formulas: null,
     formulaID: null,
@@ -41,9 +41,9 @@ export const useFormulaStore = defineStore('main', {
       await getDocs(collection(db, 'formulas')).then((querySnapshot) => {
         console.log('Total formulas: ', querySnapshot.size)
         querySnapshot.forEach((doc) => {
-          this.formula_page = doc.data()
-          return this.formula_page
+          this.formula_page.push(doc.data())
         })
+        return this.formula_page
       })
     },
     getFormulas() {
