@@ -1,7 +1,7 @@
 <template>
   <section id="nothing">
     <div class="random-floating-image">
-      <img src="@/assets/background/aspects/Aer.webp">
+      <img src="@/assets/background/aspects/Aer.webp" data-filename="Aer" alt="Aer" />
       <img src="@/assets/background/aspects/Aqua.webp">
       <img src="@/assets/background/aspects/Ignis.webp">
       <img src="@/assets/background/aspects/Ordo.webp">
@@ -127,38 +127,30 @@ export default {
 #nothing {
   height: calc(100vh);
   max-width: 100vw;
+  overflow-x: hidden;
+}
+
+
+.random-floating-image {
+  position: relative;
+
+  img {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    z-index: 10;
+  }
 }
 
 .random-floating-image {
   position: relative;
-  z-index: 10;
-}
 
-.random-floating-image img {
-  width: 30px;
-  height: 30px;
-  position: absolute;
-}
-
-
-@keyframes float {
-  0% {
-    transform: rotate(0deg) translate(0px, 0px);
+  img {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    z-index: 10;
+    cursor: pointer;
   }
-
-  50% {
-    transform: rotate(45deg) translate(20px, 20px);
-  }
-
-  100% {
-    transform: rotate(0deg) translate(0px, 0px);
-  }
-}
-
-.floating-animation {
-  animation-name: float;
-  animation-duration: 3s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
 }
 </style>
