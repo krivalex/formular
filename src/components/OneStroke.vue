@@ -13,7 +13,7 @@ import vSelect from "vue-select";
 // import { ref } from "vue";
 import { watch } from "vue";
 import "vue-select/dist/vue-select.css";
-// import { useCreatedFormulaStore } from "@/store/createdFormulaStore";
+import { useCreatedFormulaStore } from "@/store/createdFormulaStore";
 
 export default {
   name: "one-stroke",
@@ -32,6 +32,11 @@ export default {
       aspect: "",
       count: "",
       unit: "",
+      validation: {
+        count: false,
+        aspect: false,
+        unit: false,
+      }
     };
   },
   emits: ["update:stroke"],
@@ -41,17 +46,23 @@ export default {
       this.$emit("update:stroke", this.current_stroke);
     },
     validateCountData(value) {
-      console.log(value);
       switch (true) {
         case value.length === 0:
-          console.log("empty");
           return false;
         case value.length >= 1 && value.length <= 10:
-          console.log("valid");
           return true;
         default:
-          console.log("default");
+          return false;
+      }
+    },
+    validateAspectData(value) {
+      switch (true) {
+        case value.length === 0:
+          return false;
+        case value.length >= 1 && value.length <= 25:
           return true;
+        default:
+          return false;
       }
     },
   },
@@ -67,10 +78,39 @@ export default {
   },
   created() {
     watch(
-      () => this.count,
-      (newValue) => {
-        if (this.validateCountData(String(newValue))) {
-          console.log("---");
+      [() => this.count, () => this.aspect, () => this.unit],
+      ([newCountValue, newAspectValue, newUnitValue]) => {
+
+        if (this.validateCountData(String(newCountValue))) {
+          this.validation.count = true;
+        }
+        else {
+          this.validation.count = false;
+        }
+
+        if (this.validateAspectData(String(newAspectValue))) {
+          this.validation.aspect = true;
+        }
+        else {
+          this.validation.aspect = false;
+        }
+
+        if (newUnitValue) {
+          this.validation.unit = true;
+        }
+        else {
+          this.validation.unit = false;
+        }
+
+        if (this.validation.count && this.validation.aspect && this.validation.unit) {
+          const store = useCreatedFormulaStore();
+          const newStroke = {
+            stroke: this.stroke,
+            aspect: newAspectValue,
+            count: newCountValue,
+            unit: newUnitValue,
+          };
+          store.setFormulaAspects(newStroke);
         }
       },
       { immediate: true }

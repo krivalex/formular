@@ -3,7 +3,7 @@ import { collection, addDoc } from 'firebase/firestore'
 import { db } from '@/firebases'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
-export const useCreatedFormulaStore = defineStore('main', {
+export const useCreatedFormulaStore = defineStore('createdFormula', {
   state: () => ({
     formula: {
       formulaID: null,
@@ -11,14 +11,7 @@ export const useCreatedFormulaStore = defineStore('main', {
       image_link: null,
       date: null,
       author: null,
-      aspects: [
-        {
-          stroke: null,
-          aspect: null,
-          count: null,
-          unit: null,
-        },
-      ],
+      aspects: [],
     },
   }),
   getters: {
@@ -64,6 +57,17 @@ export const useCreatedFormulaStore = defineStore('main', {
       this.formula.author = author
     },
     setFormulaAspects(aspect) {
+      let aspectAspectValues = Object.values(this.formula.aspects)
+      aspectAspectValues = aspectAspectValues.map((item) => item.aspect)
+
+      console.log('aspectAspectValues', aspectAspectValues)
+
+      if (aspectAspectValues.includes(aspect.aspect)) {
+        console.log('includes')
+        this.formula.aspects.splice(this.formula.aspects.indexOf(aspect.aspect), 1)
+      } else {
+        console.log('not includes')
+      }
       this.formula.aspects.push(aspect)
     },
     async setFormula() {

@@ -86,8 +86,11 @@ export default {
     },
   },
   watch: {
-    allStrokes() {
-      this.$emit("update:stroke", this.strokes);
+    reactiveStrokes: {
+      handler() {
+        this.$emit("update:stroke", this.reactiveStrokes);
+      },
+      deep: true,
     },
   },
   computed: {
