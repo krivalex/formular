@@ -8,6 +8,13 @@
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('@/assets/background/bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;  
 }
 
-
+.flex-row {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}

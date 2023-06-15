@@ -1,13 +1,15 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link>
-    <router-link v-if="user" to="/quit">Выйти</router-link>
-    <router-link v-if="!user" to="/login">Войти</router-link>
-    <router-link to="/profile">
-      <div class="profile">
-        <profile-circle />
-      </div>
-    </router-link>
+    <div class="flex-row">
+      <router-link v-if="user" to="/quit">Выйти</router-link>
+      <router-link v-if="!user" to="/login">Войти</router-link>
+      <router-link to="/profile">
+        <div class="profile">
+          <profile-circle />
+        </div>
+      </router-link>
+    </div>
   </nav>
 </template>
 
@@ -29,14 +31,24 @@ export default {
 </script>
 
 <style lang="scss">
-@mixin responsive-font-size($min-size, $max-size, $min-width, $max-width) {
-  @media (min-width: $min-width) and (max-width: $max-width) {
-    font-size: $min-size;
-  }
+$maxWidth: 1280;
 
-  @media (min-width: $max-width) {
-    font-size: $max-size;
-  }
+@mixin adaptiv-font($pcSize, $mobSize) {
+  $addSize: $pcSize - $mobSize;
+  $maxWidth: $maxWidth - 320;
+  font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+@mixin adaptiv-margin($pcSize, $mobSize) {
+  $addSize: $pcSize - $mobSize;
+  $maxWidth: $maxWidth - 320;
+  margin: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+@mixin adaptiv-padding($pcSize, $mobSize) {
+  $addSize: $pcSize - $mobSize;
+  $maxWidth: $maxWidth - 320;
+  padding: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
 }
 
 nav {
@@ -47,11 +59,14 @@ nav {
   height: 30px;
   width: 100vw;
   position: fixed;
-}
+  @include adaptiv-padding(50, 20);
+  padding-top: 0px;
+  padding-bottom: 0px;
 
-nav a {
-  text-decoration: none;
-  color: #000;
-  @include responsive-font-size(14px, 18px, 320px, 768px);
+  a {
+    text-decoration: none;
+    color: #000;
+    @include adaptiv-font(14, 18);
+  }
 }
 </style>

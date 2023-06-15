@@ -60,6 +60,5 @@ $maxWidth: 1280;
 
 .formula {
   @include adaptiv-font(20, 12);
-  @include adaptiv-padding(40, 12);
 }
 </style>
