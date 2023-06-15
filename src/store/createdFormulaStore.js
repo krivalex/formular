@@ -18,11 +18,26 @@ export const useCreatedFormulaStore = defineStore('createdFormula', {
     getterFullFormula() {
       return this.formula
     },
+    getterFormulaDate() {
+      return this.formula.date
+    },
+    getterFormulaImageLink() {
+      return this.formula.image_link
+    },
+    getterFormulaName() {
+      return this.formula.name
+    },
+    getterFormulaAspects() {
+      return this.formula.aspects
+    },
   },
   actions: {
     createFormulaID() {
       this.formula.formulaID = '_' + Math.random().toString(36).substr(2, 9)
       return this.formula.formulaID
+    },
+    createFormula(formula) {
+      this.formula = formula
     },
     setFormulaName(name) {
       this.formula.name = name
@@ -39,7 +54,7 @@ export const useCreatedFormulaStore = defineStore('createdFormula', {
           getDownloadURL(storageRef)
             .then((downloadURL) => {
               console.log('Ссылка на загруженный файл:', downloadURL)
-              this.image_link = downloadURL
+              this.formula.image_link = downloadURL
             })
             .catch((error) => {
               console.error('Ошибка получения ссылки на загруженный файл:', error)
@@ -50,11 +65,12 @@ export const useCreatedFormulaStore = defineStore('createdFormula', {
         })
     },
     createFormulaDate() {
-      const dateNow = new Date()
-      this.formula.date = dateNow
+      this.formula.date = new Date().toLocaleString()
+      return this.formula.date
     },
-    setFormulaAuthor(author) {
-      this.formula.author = author
+    setFormulaAuthor() {
+      this.formula.author = JSON.parse(localStorage.getItem('user'))
+      return this.formula.author
     },
     setFormulaAspects(aspect) {
       let aspectAspectValues = Object.values(this.formula.aspects)
@@ -70,7 +86,16 @@ export const useCreatedFormulaStore = defineStore('createdFormula', {
       }
       this.formula.aspects.push(aspect)
     },
-    async setFormula() {
+    async addFormula() {
+      this.formula = {
+        formulaID: this.createFormulaID(),
+        name: this.formula.name,
+        image_link: this.formula.image_link,
+        date: this.createFormulaDate(),
+        author: this.setFormulaAuthor(),
+        aspects: this.formula.aspects,
+      }
+      console.log('this.formula', this.formula)
       await addDoc(collection(db, 'formulas'), this.formula).then(() => {
         console.log('Formula added')
       })

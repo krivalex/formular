@@ -7,7 +7,14 @@ export const useUserStore = defineStore('main', {
     user: null,
     user_id: null,
   }),
-  getters: {},
+  getters: {
+    getterUser() {
+      return this.user
+    },
+    getterUserID() {
+      return this.user_id
+    },
+  },
   actions: {
     getUser() {
       const data = JSON.parse(localStorage.getItem('user'))

@@ -2,7 +2,7 @@
   <div class="button-add" @click="openModal">
     <i class="fa fa-plus-circle" aria-hidden="true"></i>
     <my-modal :show="showModal" @:update:model="openModal">
-      <input type="text" class="input" placeholder="Название" />
+      <input v-model="name" @input="nameInput" type="text" class="input" placeholder="Название" />
       {{ binaryImage }}
       <div v-for="stroke in reactiveStrokes" :key="stroke.id" class="all-aspects">
         <one-stroke v-model:stroke="stroke.id" @:update:stroke="this.$emit('update:stroke', stroke.id)" />
@@ -27,7 +27,7 @@
 <script>
 import MyModal from '@/components/UI/MyModal.vue';
 import OneStroke from '@/components/OneStroke.vue';
-import { useFormulaStore } from "@/store/formulaStore";
+import { useCreatedFormulaStore } from '@/store/createdFormulaStore';
 
 export default {
   name: "add-formula-button",
@@ -50,10 +50,13 @@ export default {
           id: 1,
         },
       ],
-      all_aspects: [],
     };
   },
   methods: {
+    nameInput() {
+      const Fstore = useCreatedFormulaStore();
+      Fstore.setFormulaName(this.name);
+    },
     openModal() {
       this.showModal = !this.showModal;
       this.$emit("update:show", true);
@@ -63,26 +66,14 @@ export default {
         id: this.strokes.length + 1,
       });
     },
-    convertToBinary(e) {
+    async convertToBinary(e) {
+      const Fstore = useCreatedFormulaStore();
       this.image = e.target.files[0];
+      await Fstore.setFormulaImage(this.image);
     },
     async addFormula() {
-      const store = useFormulaStore();
-      store.createUniqueId
-
-      await store.setFormulaImage(this.image).then(() => {
-        const data = {
-          formulaId: store.getterUniqueID,
-          name: this.name,
-          strokes: this.strokes,
-          image: store.getterImageLink,
-        };
-        store.setFormula(data).then(() => {
-          this.name = "";
-          this.strokes = [];
-          this.showModal = false;
-        });
-      });
+      const Fstore = useCreatedFormulaStore();
+      await Fstore.addFormula();
     },
   },
   watch: {
