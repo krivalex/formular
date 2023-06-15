@@ -9,6 +9,29 @@
       <img src="@/assets/background/aspects/Terra.webp">
       <img src="@/assets/background/aspects/Alienis.png">
       <img src="@/assets/background/aspects/Gelum.webp">
+      <img src="@/assets/background/aspects/Arbor.png">
+      <img src="@/assets/background/aspects/Auram.png">
+      <img src="@/assets/background/aspects/Bestia.png">
+      <img src="@/assets/background/aspects/Cognitio.png">
+      <img src="@/assets/background/aspects/Corpus.png">
+      <img src="@/assets/background/aspects/Exanimis.png">
+      <img src="@/assets/background/aspects/Fabrico.png">
+      <img src="@/assets/background/aspects/Fames.png">
+      <img src="@/assets/background/aspects/Herba.png">
+      <img src="@/assets/background/aspects/Humanus.png">
+      <img src="@/assets/background/aspects/Instrumentum.png">
+      <img src="@/assets/background/aspects/Iter.png">
+      <img src="@/assets/background/aspects/Limus.png">
+      <img src="@/assets/background/aspects/Lucrum.png">
+      <img src="@/assets/background/aspects/Lux.png">
+      <img src="@/assets/background/aspects/Machina.png">
+      <img src="@/assets/background/aspects/Messis.png">
+      <img src="@/assets/background/aspects/Metallum.png">
+      <img src="@/assets/background/aspects/Meto.png">
+      <img src="@/assets/background/aspects/Mortuus.png">
+      <img src="@/assets/background/aspects/Motus.png">
+      <img src="@/assets/background/aspects/Venenum.png">
+
     </div>
   </section>
 </template>
@@ -26,15 +49,25 @@ export default {
       let randomX = Math.random() * window.innerWidth;
       let randomY = Math.random() * window.innerHeight;
 
-      if (randomX > window.innerHeight - 100) {
-        randomX -= 100;
+      if (randomY > window.innerHeight - 100) {
+        randomY -= 50;
+      }
+      else if (randomY < 100) {
+        randomY += 50;
+      }
+
+      if (randomX > window.innerWidth - 100) {
+        randomX -= 50;
+      }
+      else if (randomX < 100) {
+        randomX += 50;
       }
 
       console.log(randomX, randomY);
 
       image.style.left = `${randomX}px`;
       image.style.top = `${randomY}px`;
-      image.style.animation = `${this.generateRandomKeyframeAnimation()} ${Math.random() * 5 + 45}s infinite`;
+      image.style.animation = `${this.generateRandomKeyframeAnimation()} ${Math.random() * 5 + 120}s infinite`;
 
       image.classList.add('floating-animation');
     });
@@ -52,7 +85,7 @@ export default {
     50% {
       transform: 
        rotate(${rotation}deg)
-       translate(${Math.floor(Math.random() * 50)}px, ${Math.floor(Math.random() * 50)}px);
+       translate(${Math.floor(Math.random() * 150)}px, ${Math.floor(Math.random() * 150)}px);
     }
     100% {
       transform:
@@ -84,7 +117,6 @@ export default {
 .random-floating-image img {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
   position: absolute;
 }
 

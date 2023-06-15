@@ -62,6 +62,7 @@ nav {
   @include adaptiv-padding(50, 20);
   padding-top: 0px;
   padding-bottom: 0px;
+  z-index: 100;
 
   a {
     text-decoration: none;
