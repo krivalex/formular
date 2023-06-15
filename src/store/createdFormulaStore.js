@@ -16,25 +16,12 @@ export const useCreatedFormulaStore = defineStore('createdFormula', {
       dislikes: 0,
       difficulty: 0,
       comments: [],
+      category: null,
+      kitchen: null,
+      description: null,
     },
   }),
-  getters: {
-    getterFullFormula() {
-      return this.formula
-    },
-    getterFormulaDate() {
-      return this.formula.date
-    },
-    getterFormulaImageLink() {
-      return this.formula.image_link
-    },
-    getterFormulaName() {
-      return this.formula.name
-    },
-    getterFormulaAspects() {
-      return this.formula.aspects
-    },
-  },
+  getters: {},
   actions: {
     createFormulaID() {
       this.formula.formulaID = '_' + Math.random().toString(36).substr(2, 9)
@@ -48,6 +35,15 @@ export const useCreatedFormulaStore = defineStore('createdFormula', {
     },
     setFormulaDifficulty(difficulty) {
       this.formula.difficulty = difficulty
+    },
+    setFormulaCategory(category) {
+      this.formula.category = category
+    },
+    setFormulaKitchen(kitchen) {
+      this.formula.kitchen = kitchen
+    },
+    setFormulaDescription(description) {
+      this.formula.description = description
     },
     async setFormulaImage(file) {
       const storage = getStorage()
@@ -98,6 +94,9 @@ export const useCreatedFormulaStore = defineStore('createdFormula', {
         dislikes: 0,
         comments: [],
         difficulty: this.formula.difficulty,
+        category: this.formula.category,
+        kitchen: this.formula.kitchen,
+        description: this.formula.description,
       }
       await addDoc(collection(db, 'formulas'), this.formula).then(() => {
         console.log('Formula added')

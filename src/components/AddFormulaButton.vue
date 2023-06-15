@@ -11,6 +11,12 @@
         :border-width="4" :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
         :active-on-click="true" :clearable="true" :padding="3"></star-rating>
 
+      <v-select v-model="reactive_category" :reduce="(option) => option.value" :options="category_options" />
+
+      <v-select v-model="reactive_kitchen" :reduce="(option) => option.value" :options="kitchen_options" />
+
+      <textarea v-model="description" @input="descriptionInput" class="textarea" placeholder="Описание"></textarea>
+
       <div v-for="stroke in reactiveStrokes" :key="stroke.id" class="all-aspects">
         <one-stroke v-model:stroke="stroke.id" @:update:stroke="this.$emit('update:stroke', stroke.id)" />
       </div>
@@ -40,13 +46,16 @@ import OneStroke from '@/components/OneStroke.vue';
 import { useCreatedFormulaStore } from '@/store/createdFormulaStore';
 import StarRating from 'vue-star-rating';
 import { watch } from 'vue';
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 
 export default {
   name: "add-formula-button",
   components: {
     MyModal,
     OneStroke,
-    StarRating
+    StarRating,
+    vSelect,
   },
   emits: ["update:show", "update:stroke"],
   updated() {
@@ -69,6 +78,10 @@ export default {
     nameInput() {
       const Fstore = useCreatedFormulaStore();
       Fstore.setFormulaName(this.name);
+    },
+    descriptionInput() {
+      const Fstore = useCreatedFormulaStore();
+      Fstore.setFormulaDescription(this.description);
     },
     openModal() {
       this.showModal = !this.showModal;
@@ -116,6 +129,50 @@ export default {
         start_id++;
       });
       return this.strokes;
+    },
+    reactive_category: {
+      get() {
+        const store = useCreatedFormulaStore();
+        return store.formula.category;
+      },
+      set(value) {
+        const store = useCreatedFormulaStore();
+        store.setFormulaCategory(value);
+      },
+    },
+    reactive_kitchen: {
+      get() {
+        const store = useCreatedFormulaStore();
+        return store.formula.kitchen;
+      },
+      set(value) {
+        const store = useCreatedFormulaStore();
+        store.setFormulaKitchen(value);
+      },
+    },
+  },
+  setup() {
+    return {
+      category_options: [
+        { label: "супы", value: "soup" },
+        { label: "завтраки", value: "breakfast" },
+        { label: "основные блюда", value: "dish" },
+        { label: "выпечка и десерты", value: "dessert" },
+        { label: "салаты", value: "salat" },
+        { label: "закуски", value: "snacks" },
+        { label: "сэндвичи", value: "sandwich" },
+        { label: "алкогольные напитки", value: "alcogol" },
+        { label: "напитки", value: "drink" },
+      ],
+      kitchen_options: [
+        { label: "русская кухня", value: "russian" },
+        { label: "американская кухня", value: "american" },
+        { label: "казахская кухня", value: "kazakh" },
+        { label: "уйгурская кухня", value: "uighur" },
+        { label: "итальянская кухня", value: "italian" },
+        { label: "английская кухня", value: "british" },
+        { label: "грузинская кухня", value: "georgian" },
+      ]
     }
   }
 
