@@ -31,6 +31,25 @@
       <img src="@/assets/background/aspects/Mortuus.png">
       <img src="@/assets/background/aspects/Motus.png">
       <img src="@/assets/background/aspects/Venenum.png">
+      <img src="@/assets/background/aspects/Pannus.png">
+      <img src="@/assets/background/aspects/Perfodio.png">
+      <img src="@/assets/background/aspects/Permutatio.png">
+      <img src="@/assets/background/aspects/Potentia.png">
+      <img src="@/assets/background/aspects/Praecantatio.png">
+      <img src="@/assets/background/aspects/Sano.png">
+      <img src="@/assets/background/aspects/Sensus.png">
+      <img src="@/assets/background/aspects/Spiritus.png">
+      <img src="@/assets/background/aspects/Telum.png">
+      <img src="@/assets/background/aspects/Tempestas.png">
+      <img src="@/assets/background/aspects/Tenebrae.png">
+      <img src="@/assets/background/aspects/Tutamen.png">
+      <img src="@/assets/background/aspects/Unknown.png">
+      <img src="@/assets/background/aspects/Vacous.png">
+      <img src="@/assets/background/aspects/Victus.png">
+      <img src="@/assets/background/aspects/Vinculum.png">
+      <img src="@/assets/background/aspects/Vitium.png">
+      <img src="@/assets/background/aspects/Vitreus.png">
+      <img src="@/assets/background/aspects/Volatus.png">
 
     </div>
   </section>
@@ -107,6 +126,7 @@ export default {
 <style lang="scss">
 #nothing {
   height: calc(100vh);
+  max-width: 100vw;
 }
 
 .random-floating-image {
