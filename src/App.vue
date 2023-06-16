@@ -11,6 +11,7 @@
 import MainNavbar from '@/components/layouts/MainNavbar.vue'
 import AddFormulaButton from './components/AddFormulaButton.vue';
 import BG from './pages/BG.vue';
+
 export default {
   name: 'App',
   components: {
