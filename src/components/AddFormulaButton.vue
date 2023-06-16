@@ -6,7 +6,7 @@
 
       <input v-model="name" @input="nameInput" type="text" class="input" placeholder="Название" />
 
-      <star-rating v-model:rating="difficult" :animate="true"
+      <star-rating v-model:rating="difficult" :animate="true" :show-rating="false"
         :active-color="['#a1eb34', '#ebd934', '#eb9f34', '#eb5f34', '#eb3d34']" :active-border-color="['#a8c3c0']"
         :border-width="4" :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
         :active-on-click="true" :clearable="true" :padding="3"></star-rating>
