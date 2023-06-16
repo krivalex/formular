@@ -81,17 +81,29 @@ $maxWidth: 1280;
   height: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
 }
 
+@mixin adaptiv-absolute-top($pcSize, $mobSize) {
+  $addSize: $pcSize - $mobSize;
+  $maxWidth: $maxWidth - 320;
+  top: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+@mixin adaptiv-absolute-left($pcSize, $mobSize) {
+  $addSize: $pcSize - $mobSize;
+  $maxWidth: $maxWidth - 320;
+  left: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
 .formula {
   @include adaptiv-font(20, 12);
-  @include adaptiv-width(400, 200);
-  @include adaptiv-height(700, 300);
+  @include adaptiv-width(400, 300);
+  @include adaptiv-height(700, 400);
   z-index: 100;
   position: relative;
 }
 
 .formula-bg {
-  @include adaptiv-width(400, 200);
-  @include adaptiv-height(700, 300);
+  @include adaptiv-width(400, 300);
+  @include adaptiv-height(700, 400);
   z-index: -1;
   position: absolute;
 }
@@ -105,6 +117,8 @@ $maxWidth: 1280;
   align-items: center;
   justify-content: center;
   font-family: 'Caveat', cursive;
+  position: relative;
+  width: 100%;
 
   h1 {
     width: 90%;
@@ -114,18 +128,23 @@ $maxWidth: 1280;
     @include adaptiv-font(30, 20);
   }
 
+  .row {
+    position: absolute;
+    @include adaptiv-font(20, 12);
+  }
+
   .difficulty {
+    @include adaptiv-absolute-top(400, 300);
+    @include adaptiv-absolute-left(40, 20);
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: space-between;
+    width: 80%;
+
   }
 }
 
-.formula-description {
-  z-index: 100;
-  position: relative;
-}
+
 
 .main-image {
   width: 100%;

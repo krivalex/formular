@@ -58,7 +58,7 @@ $maxWidth: 1280;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  @include adaptiv-width(400, 200);
-  @include adaptiv-height(700, 300);
+  @include adaptiv-width(400, 300);
+  @include adaptiv-height(700, 400);
 }
 </style>
