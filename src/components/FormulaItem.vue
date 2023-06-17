@@ -93,6 +93,7 @@ export default {
   border-bottom-left-radius: 10%;
   border-bottom-right-radius: 10%;
   box-shadow: 5px 2px 0px 1px #0a0a0a;
+  font-family: 'Caveat', cursive;
 
   .author-title {
     display: flex;

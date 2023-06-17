@@ -4,6 +4,11 @@
     <div class="content">
       <img :src="author.photoURL" alt="author avatar" />
       <p>{{ author.displayName }}</p>
+      <div class="online-status">
+        <p>Зарегистрирован(а)</p>
+        <p>{{ dateFormatter }}</p>
+      </div>
+
     </div>
   </div>
 </template>
@@ -15,6 +20,18 @@ export default {
     author: {
       type: Object,
       required: true,
+    },
+  },
+  computed: {
+    dateFormatter() {
+      let date = Number(this.author.createdAt)
+      date = new Date(date);
+      date = date.toLocaleString('ru', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+      return date
     },
   },
 }
@@ -35,8 +52,6 @@ export default {
   margin-top: 50px;
   border: 15px solid #502d16;
   border-bottom: none;
-  border-top-left-radius: 10%;
-  border-top-right-radius: 10%;
   box-shadow: 5px 2px 0px 1px #0a0a0a;
 
   img {
@@ -60,6 +75,26 @@ export default {
     z-index: -1;
     opacity: 0.5;
     border-radius: 0%;
+  }
+
+  .online-status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-family: 'Caveat', cursive;
+    margin: 10px 3%;
+
+    p {
+      @include adaptiv-font(14, 10);
+
+      &:last-child {
+        color: rgb(79, 79, 79);
+      }
+    }
   }
 }
 </style>
