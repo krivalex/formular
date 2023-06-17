@@ -154,24 +154,24 @@ export default {
   setup() {
     return {
       category_options: [
-        { label: "супы", value: "soup" },
-        { label: "завтраки", value: "breakfast" },
-        { label: "основные блюда", value: "dish" },
-        { label: "выпечка и десерты", value: "dessert" },
-        { label: "салаты", value: "salat" },
-        { label: "закуски", value: "snacks" },
-        { label: "сэндвичи", value: "sandwich" },
-        { label: "алкогольные напитки", value: "alcogol" },
-        { label: "напитки", value: "drink" },
+        { label: "супы", value: "супы" },
+        { label: "завтраки", value: "завтраки" },
+        { label: "основные блюда", value: "основные блюда" },
+        { label: "выпечка и десерты", value: "выпечка и десерты" },
+        { label: "салаты", value: "салаты" },
+        { label: "закуски", value: "закуски" },
+        { label: "сэндвичи", value: "сэндвичи" },
+        { label: "алкогольные напитки", value: "алкогольные напитки" },
+        { label: "напитки", value: "напитки" },
       ],
       kitchen_options: [
-        { label: "русская кухня", value: "russian" },
-        { label: "американская кухня", value: "american" },
-        { label: "казахская кухня", value: "kazakh" },
-        { label: "уйгурская кухня", value: "uighur" },
-        { label: "итальянская кухня", value: "italian" },
-        { label: "английская кухня", value: "british" },
-        { label: "грузинская кухня", value: "georgian" },
+        { label: "русская кухня", value: "русская кухня" },
+        { label: "американская кухня", value: "американская кухня" },
+        { label: "казахская кухня", value: "казахская кухня" },
+        { label: "уйгурская кухня", value: "уйгурская кухня" },
+        { label: "итальянская кухня", value: "итальянская кухня" },
+        { label: "английская кухня", value: "английская кухня" },
+        { label: "грузинская кухня", value: "грузинская кухня" },
       ]
     }
   }

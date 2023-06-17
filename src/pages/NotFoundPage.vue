@@ -1,6 +1,11 @@
 <template>
   <div class="formula-css">
     <img class="pin" src="@/assets/pin.png">
+    <div v-for="aspect in aspects" :key="aspect.id" class="row">
+      <p class="stroke">{{ aspect.id }}</p>
+      <p class="stroke">{{ aspect.name }}</p>
+      <div class="divider"></div>
+    </div>
   </div>
 </template>
 
@@ -8,7 +13,16 @@
 
 export default {
   name: "formula-css",
-}
+  data() {
+    return {
+      aspects: [
+        { id: 1, name: "1" },
+        { id: 2, name: "2" },
+        { id: 3, name: "3" },
+      ]
+    }
+  },
+};
 
 
 </script>
@@ -35,6 +49,12 @@ export default {
   border-bottom-left-radius: 10%;
   border-bottom-right-radius: 10%;
   box-shadow: 5px 2px 0px 1px #0a0a0a;
+
+  .divider {
+    @include adaptiv-width(320, 250);
+    height: 2px;
+    background-color: black;
+  }
 }
 
 .pin {
