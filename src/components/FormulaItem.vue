@@ -9,6 +9,8 @@
 
       <img class="main-image" :src="formula.image_link" alt="formula image" />
 
+      <p class="formula-description">{{ formula.description }}</p>
+
       <div v-for="aspect in formula.aspects" :key="aspect.stroke" class="row">
         <div class="strokes">
           <p class="stroke">{{ aspect.stroke }}. {{ aspect.aspect }}</p>
@@ -16,8 +18,6 @@
         </div>
         <div class="divider"></div>
       </div>
-
-      <p class="formula-description">{{ formula.description }}</p>
 
       <div class="category-kitchen">
         <p>{{ formula.category }}</p>
@@ -110,19 +110,19 @@ export default {
     diffucult_preview() {
       switch (this.formula.difficulty) {
         case 0:
-          return "Сложность не указана";
+          return "«Сложность не указана»";
         case 1:
-          return "Справиться каждый";
+          return "«Справиться каждый»";
         case 2:
-          return "Минимальные навыки готовки";
+          return "«Минимальные навыки готовки»";
         case 3:
-          return "Придется поторчать на кухне";
+          return "«Придется поторчать на кухне»";
         case 4:
-          return "Придется сходить в магазин, и постараться";
+          return "«Придется сходить в магазин, и постараться»";
         case 5:
-          return "Только для опытных поваров";
+          return "«Только для опытных поваров»";
         default:
-          return "Сложность не указана";
+          return "«Сложность не указана»";
       }
     },
   }
@@ -137,7 +137,7 @@ export default {
 .formula-css {
   @include adaptiv-font(18, 12);
   @include adaptiv-width(400, 300);
-  @include adaptiv-height(500, 400);
+  @include adaptiv-height(550, 450);
   z-index: 100;
   position: relative;
   background-color: #f1f7c1;
@@ -155,6 +155,13 @@ export default {
 
   .content {
     height: 100%;
+
+    h1 {
+      text-align: center;
+      font-family: 'Ubuntu', sans-serif;
+      margin: 5% 0;
+      @include adaptiv-font(30, 20);
+    }
   }
 
   .divider {
@@ -199,24 +206,29 @@ export default {
 }
 
 .diffuculty-date {
-  justify-content: space-around;
+  justify-content: space-evenly;
   position: absolute;
   bottom: 0;
 
   .difficulty {
+
+    min-width: 60%;
+
     .difficulty-text {
+
       p {
-        width: 100%;
+        max-width: 80%;
         font-family: 'Ubuntu Condensed', sans-serif;
         @include adaptiv-font(14, 10);
         white-space: nowrap;
+        margin-bottom: 5px;
+
       }
     }
+  }
 
-    p {
-      max-width: 50%;
-    }
-
+  p {
+    min-width: 40%;
   }
 }
 </style>

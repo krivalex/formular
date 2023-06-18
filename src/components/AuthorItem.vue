@@ -61,7 +61,7 @@ export default {
 .author-item {
   @include adaptiv-font(18, 12);
   @include adaptiv-width(400, 300);
-  @include adaptiv-height(100, 50);
+  @include adaptiv-height(100, 100);
   z-index: 100;
   position: relative;
   background-color: #f1f7c1;
@@ -85,14 +85,10 @@ export default {
     box-shadow: 0px 0px 0px 1px #0a0a0a;
   }
 
-  img {
-    width: 50px;
-    height: 50px;
-  }
-
   p {
     @include adaptiv-font(18, 12);
     font-weight: 700;
+
   }
 
   .texture {
@@ -121,8 +117,8 @@ export default {
       }
 
       img {
-        width: 50px;
-        height: 50px;
+        @include adaptiv-width(50, 30);
+        @include adaptiv-height(50, 30);
         border: 2px solid #502d16;
       }
     }
@@ -138,12 +134,17 @@ export default {
     justify-content: flex-end;
     font-family: 'Caveat', cursive;
     margin: 10px 3%;
+    width: 100%;
+    text-align: center;
 
     p {
       @include adaptiv-font(14, 10);
+      font-family: 'Ubuntu Condensed', sans-serif;
+      text-align: center;
 
       b {
         color: rgb(79, 79, 79);
+        font-family: 'Caveat', cursive;
       }
     }
   }
