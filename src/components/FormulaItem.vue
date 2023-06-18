@@ -24,9 +24,12 @@
         <p>{{ formula.kitchen }}</p>
       </div>
 
-      <div class="diffuculty-date">
+      <div class="flex-row diffuculty-date">
         <div class="difficulty">
-          <star-rating :star-size="20" :show-rating="false" :read-only="true" :rating="formula.difficulty"
+          <div class="difficulty-text">
+            <p>{{ diffucult_preview }}</p>
+          </div>
+          <star-rating :star-size="15" :show-rating="false" :read-only="true" :rating="formula.difficulty"
             :active-color="['#a1eb34', '#ebd934', '#eb9f34', '#eb5f34', '#eb3d34']" :active-border-color="['#a8c3c0']"
             :border-width="4"
             :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]" />
@@ -104,9 +107,26 @@ export default {
         createdAt: "Нет",
       }
     },
-
-  },
-}
+    diffucult_preview() {
+      switch (this.formula.difficulty) {
+        case 0:
+          return "Сложность не указана";
+        case 1:
+          return "Справиться каждый";
+        case 2:
+          return "Минимальные навыки готовки";
+        case 3:
+          return "Придется поторчать на кухне";
+        case 4:
+          return "Придется сходить в магазин, и постараться";
+        case 5:
+          return "Только для опытных поваров";
+        default:
+          return "Сложность не указана";
+      }
+    },
+  }
+};
 
 
 </script>
@@ -133,18 +153,8 @@ export default {
   box-shadow: 5px 2px 0px 1px #0a0a0a;
   font-family: 'Caveat', cursive;
 
-  .author-title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-
-    h1 {
-      @include adaptiv-font(24, 16);
-      font-weight: 700;
-      margin: 0;
-    }
+  .content {
+    height: 100%;
   }
 
   .divider {
@@ -185,6 +195,28 @@ export default {
   .stroke {
     display: flex;
     justify-content: space-between;
+  }
+}
+
+.diffuculty-date {
+  justify-content: space-around;
+  position: absolute;
+  bottom: 0;
+
+  .difficulty {
+    .difficulty-text {
+      p {
+        width: 100%;
+        font-family: 'Ubuntu Condensed', sans-serif;
+        @include adaptiv-font(14, 10);
+        white-space: nowrap;
+      }
+    }
+
+    p {
+      max-width: 50%;
+    }
+
   }
 }
 </style>
