@@ -11,6 +11,8 @@ export const useFormulaStore = defineStore('main', {
     all_formulas: null,
     formulaID: null,
     image_link: null,
+    search_query: null,
+    searched_formulas: [],
   }),
   getters: {
     getterFormulaPage() {
@@ -22,12 +24,57 @@ export const useFormulaStore = defineStore('main', {
     getterImageLink() {
       return this.image_link
     },
+    getterSearchQuery() {
+      return this.search_query
+    },
+    getterSearchedFormulas() {
+      return this.searched_formulas
+    },
   },
   actions: {
     createUniqueId() {
       console.log('createUniqueId')
       this.formulaID = '_' + Math.random().toString(36).substr(2, 9)
       return this.formulaID
+    },
+    setSearchQuery(query) {
+      this.search_query = query
+    },
+    async searchFormulas() {
+      await getDocs(collection(db, 'formulas')).then((querySnapshot) => {
+        let uniqueFormulas = new Set()
+
+        querySnapshot.forEach((doc) => {
+          if (this.search_query === null || this.search_query === '') {
+            this.searched_formulas = []
+            return this.searched_formulas
+          }
+
+          const name_check = doc.data().name.toLowerCase().includes(this.search_query.toLowerCase())
+          const description_check = doc.data().description.toLowerCase().includes(this.search_query.toLowerCase())
+          const category_check = doc.data().category.toLowerCase().includes(this.search_query.toLowerCase())
+          const kitchen_check = doc.data().kitchen.toLowerCase().includes(this.search_query.toLowerCase())
+          const aspects = doc.data().aspects
+          const aspects_check = Object.values(aspects).some((aspect) => {
+            return Object.values(aspect).some((aspect_one) => {
+              return String(aspect_one).toLowerCase().includes(this.search_query.toLowerCase())
+            })
+          })
+
+          console.log('name_check', name_check)
+          console.log('description_check', description_check)
+          console.log('category_check', category_check)
+          console.log('kitchen_check', kitchen_check)
+          console.log('aspects_check', aspects_check)
+
+          if (name_check || description_check || aspects_check || category_check || kitchen_check) {
+            console.log('doc.data()', doc.data())
+            uniqueFormulas.add(doc.data())
+            this.searched_formulas = Array.from(uniqueFormulas)
+            return this.searched_formulas
+          }
+        })
+      })
     },
     async setFormula(formula) {
       await addDoc(collection(db, 'formulas'), formula).then(() => {

@@ -1,7 +1,7 @@
 <template>
   <section id="home-page">
     <h1>Formula Page</h1>
-    <formula-list :formulas="formulas" />
+    <formula-list :formulas="searchOrNot" />
   </section>
 </template>
 
@@ -24,6 +24,16 @@ export default {
     await store.getFormulaPage().then(() => {
       this.formulas = store.getterFormulaPage;
     });
+  },
+  computed: {
+    searchOrNot() {
+      const store = useFormulaStore();
+      if (store.getterSearchQuery) {
+        return store.getterSearchedFormulas;
+      } else {
+        return this.formulas;
+      }
+    }
   },
 
 }

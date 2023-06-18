@@ -131,8 +131,6 @@ export default {
         randomX += 50;
       }
 
-      console.log(randomX, randomY);
-
       image.style.left = `${randomX}px`;
       image.style.top = `${randomY}px`;
       image.style.animation = `${this.generateRandomKeyframeAnimation()} ${Math.random() * 5 + 120}s infinite`;

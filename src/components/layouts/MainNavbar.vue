@@ -8,33 +8,60 @@
 
     <div class="item">
       <i class="fa fa-search"></i>
-      <input type="search" placeholder="Поиск" />
+      <input v-model="search" @input="searchInput" type="search" placeholder="Поиск" />
     </div>
 
     <div class="enter">
       <router-link v-if="user" to="/quit">Выйти</router-link>
       <router-link v-if="!user" to="/login">Войти</router-link>
+
       <router-link to="/profile">
         <div class="profile">
           <profile-circle />
         </div>
       </router-link>
     </div>
+
   </nav>
 </template>
 
 <script>
 import ProfileCircle from "@/components/ProfileCircle.vue";
+import { useFormulaStore } from "@/store/formulaStore.js";
 
 export default {
   name: "main-navbar",
   components: {
     ProfileCircle
   },
+  async mounted() {
+    const store = useFormulaStore();
+    await store.getFormulaPage().then(() => {
+      this.formulas = store.getterFormulaPage;
+    });
+  },
+  methods: {
+    searchInput() {
+      const store = useFormulaStore();
+      store.setSearchQuery(this.search);
+      store.searchFormulas();
+      console.log(store.getterSearchQuery);
+      console.log(store.getterSearchedFormulas);
+    },
+  },
   data() {
     return {
       user: JSON.parse(localStorage.getItem("user")),
+      formulas: [],
+      search: "",
     };
+  },
+  computed: {
+    filteredList() {
+      return this.formulas.filter(formula => {
+        return formula.name.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
   },
 }
 

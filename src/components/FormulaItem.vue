@@ -57,9 +57,6 @@ export default {
       required: true,
     },
   },
-  created() {
-    console.log(this.formula);
-  },
   methods: {
     unit_ultra_computed(unit, count) {
       let current_unit = unit;
@@ -67,11 +64,9 @@ export default {
       let lastDigit = current_count[current_count.length - 1];
 
       if (["2", "3", "4"].includes(lastDigit)) {
-        console.log('2, 3, 4');
         current_unit = current_unit + 'а';
         return current_unit;
       } else if (["5", "6", "7", "8", "9", "0"].includes(lastDigit)) {
-        console.log('5, 6, 7, 8, 9, 0');
         current_unit = current_unit + 'ов';
         return current_unit;
       } else {

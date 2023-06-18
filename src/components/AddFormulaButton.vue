@@ -112,7 +112,6 @@ export default {
     watch(
       [() => this.difficult],
       ([newRatingValue]) => {
-        console.log(newRatingValue);
         if (newRatingValue !== 0) {
           const store = useCreatedFormulaStore();
           store.setFormulaDifficulty(newRatingValue);
