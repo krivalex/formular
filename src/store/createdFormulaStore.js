@@ -19,6 +19,7 @@ export const useCreatedFormulaStore = defineStore('createdFormula', {
       category: null,
       kitchen: null,
       description: null,
+      link: null,
     },
   }),
   getters: {},
@@ -44,6 +45,9 @@ export const useCreatedFormulaStore = defineStore('createdFormula', {
     },
     setFormulaDescription(description) {
       this.formula.description = description
+    },
+    setFormulaLink(link) {
+      this.formula.link = link
     },
     async setFormulaImage(file) {
       const storage = getStorage()

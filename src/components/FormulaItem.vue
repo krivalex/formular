@@ -155,12 +155,37 @@ export default {
 
   .content {
     height: 100%;
+    position: relative;
 
     h1 {
       text-align: center;
       font-family: 'Ubuntu', sans-serif;
       margin: 5% 0;
       @include adaptiv-font(30, 20);
+    }
+
+    .formula-description {
+      @include adaptiv-font(20, 14);
+      margin: 0 5%;
+      text-align: justify;
+      text-indent: 1.5em;
+    }
+
+    .category-kitchen {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      padding: 0 5%;
+      font-family: 'Ubuntu', sans-serif;
+      margin-top: 10px;
+
+      p {
+        @include adaptiv-font(17, 14);
+        border: 2px solid black;
+        font-style: italic;
+        padding: 5px;
+        cursor: pointer;
+      }
     }
   }
 

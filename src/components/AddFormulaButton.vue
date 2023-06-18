@@ -17,6 +17,8 @@
 
       <textarea v-model="description" @input="descriptionInput" class="textarea" placeholder="Описание"></textarea>
 
+      <input v-model="link" @input="linkInput" type="text" class="input" placeholder="Ссылка, чтобы не потерять" />
+
       <div v-for="stroke in reactiveStrokes" :key="stroke.id" class="all-aspects">
         <one-stroke v-model:stroke="stroke.id" @:update:stroke="this.$emit('update:stroke', stroke.id)" />
       </div>
@@ -82,6 +84,10 @@ export default {
     descriptionInput() {
       const Fstore = useCreatedFormulaStore();
       Fstore.setFormulaDescription(this.description);
+    },
+    linkInput() {
+      const Fstore = useCreatedFormulaStore();
+      Fstore.setFormulaLink(this.link);
     },
     openModal() {
       this.showModal = !this.showModal;
@@ -154,15 +160,15 @@ export default {
   setup() {
     return {
       category_options: [
-        { label: "супы", value: "супы" },
-        { label: "завтраки", value: "завтраки" },
-        { label: "основные блюда", value: "основные блюда" },
-        { label: "выпечка и десерты", value: "выпечка и десерты" },
-        { label: "салаты", value: "салаты" },
-        { label: "закуски", value: "закуски" },
-        { label: "сэндвичи", value: "сэндвичи" },
-        { label: "алкогольные напитки", value: "алкогольные напитки" },
-        { label: "напитки", value: "напитки" },
+        { label: "супы", value: "супы🍲" },
+        { label: "завтраки", value: "завтраки🍳" },
+        { label: "основные блюда", value: "основные блюда🥩" },
+        { label: "выпечка и десерты", value: "выпечка и десерты🍰" },
+        { label: "салаты", value: "салаты🥗" },
+        { label: "закуски", value: "закуски🍢" },
+        { label: "сэндвичи", value: "сэндвичи🥪" },
+        { label: "алкогольные напитки", value: "алкогольные напитки🍾" },
+        { label: "напитки", value: "напитки☕" },
       ],
       kitchen_options: [
         { label: "русская кухня", value: "русская кухня" },
