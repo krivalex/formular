@@ -1,7 +1,17 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link>
-    <div class="flex-row">
+
+    <div class="item">
+      <i class="fa fa-home"></i>
+      <router-link to="/">Формулы</router-link>
+    </div>
+
+    <div class="item">
+      <i class="fa fa-search"></i>
+      <input type="search" placeholder="Поиск" />
+    </div>
+
+    <div class="enter">
       <router-link v-if="user" to="/quit">Выйти</router-link>
       <router-link v-if="!user" to="/login">Войти</router-link>
       <router-link to="/profile">
@@ -31,43 +41,34 @@ export default {
 </script>
 
 <style lang="scss">
-$maxWidth: 1280;
-
-@mixin adaptiv-font($pcSize, $mobSize) {
-  $addSize: $pcSize - $mobSize;
-  $maxWidth: $maxWidth - 320;
-  font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
-}
-
-@mixin adaptiv-margin($pcSize, $mobSize) {
-  $addSize: $pcSize - $mobSize;
-  $maxWidth: $maxWidth - 320;
-  margin: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
-}
-
-@mixin adaptiv-padding($pcSize, $mobSize) {
-  $addSize: $pcSize - $mobSize;
-  $maxWidth: $maxWidth - 320;
-  padding: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
-}
+@import "@/assets/style.scss";
 
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #f5f5f5;
-  height: 30px;
+  @include adaptiv-height(50, 30);
   width: 100vw;
   position: fixed;
   @include adaptiv-padding(50, 20);
   padding-top: 0px;
   padding-bottom: 0px;
   z-index: 500;
+  border: 5px solid #502d16;
+  background: #f7c09b;
 
   a {
     text-decoration: none;
     color: #000;
-    @include adaptiv-font(14, 18);
+    @include adaptiv-font(25, 15);
+    margin-right: 10px;
+  }
+
+  .enter {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
   }
 }
 </style>
