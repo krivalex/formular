@@ -144,7 +144,6 @@ export default {
 
       b {
         color: rgb(79, 79, 79);
-        font-family: 'Caveat', cursive;
       }
     }
   }

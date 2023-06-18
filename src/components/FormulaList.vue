@@ -35,7 +35,7 @@ $maxWidth: 1280;
 @mixin adaptiv-height($pcSize, $mobSize) {
   $addSize: $pcSize - $mobSize;
   $maxWidth: $maxWidth - 320;
-  max-height: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+  min-height: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
 }
 
 @mixin adaptiv-gap($pcSize, $mobSize) {
@@ -58,7 +58,7 @@ $maxWidth: 1280;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  @include adaptiv-width(400, 300);
+  @include adaptiv-width(450, 300);
   @include adaptiv-height(700, 400);
 }
 </style>
