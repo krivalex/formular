@@ -118,14 +118,14 @@ export default {
   setup() {
     return {
       unit_options: [
-        { label: "грамм", value: "gramm" },
-        { label: "килограмм", value: "kilogramm" },
-        { label: "литр", value: "liter" },
-        { label: "миллилитр", value: "milliliter" },
-        { label: "штука", value: "piece" },
-        { label: "щепотка", value: "hand" },
-        { label: "чайная ложка", value: "small_spoke" },
-        { label: "столовая ложка", value: "big_spoke" },
+        { label: "грамм", value: "грамм" },
+        { label: "килограмм", value: "килограмм" },
+        { label: "литр", value: "литр" },
+        { label: "миллилитр", value: "миллитр" },
+        { label: "штука", value: "штука" },
+        { label: "щепотка", value: "щепотка" },
+        { label: "чайная ложка", value: "чайная ложка" },
+        { label: "столовая ложка", value: "столовая ложка" },
       ],
     }
   },

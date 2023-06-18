@@ -1,12 +1,14 @@
 <template>
   <div class="author-item">
-    <img class="texture" src="@/assets/background/paper-text-2.jpg">
+    <img class="texture" src="@/assets/background/paper-text.jpg">
     <div class="content">
-      <img :src="author.photoURL" alt="author avatar" />
-      <p>{{ author.displayName }}</p>
+      <div class="flex-row image-name">
+        <img :src="author.photoURL" v-if="author.photoURL" alt="author avatar" />
+        <img :src="randomImage" v-else alt="author avatar" />
+        <h1>{{ author.displayName }}</h1>
+      </div>
       <div class="online-status">
-        <p>Зарегистрирован(а)</p>
-        <p>{{ dateFormatter }}</p>
+        <p>Зарегистрирован(а): <b>{{ dateFormatter }}</b></p>
       </div>
 
     </div>
@@ -22,8 +24,14 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      randomImage: "https://cdn-icons-png.flaticon.com/512/2822/2822369.png"
+    }
+  },
   computed: {
     dateFormatter() {
+      if (this.author.createdAt === "Нет") return "Нет"
       let date = Number(this.author.createdAt)
       date = new Date(date);
       date = date.toLocaleString('ru', {
@@ -32,6 +40,15 @@ export default {
         day: 'numeric',
       })
       return date
+    },
+    randomAvatar() {
+      const images = [
+        "@/assets/pin.png",
+      ]
+
+      const finalImage = images[Math.floor(Math.random() * images.length)]
+
+      return finalImage
     },
   },
 }
@@ -52,13 +69,25 @@ export default {
   margin-top: 50px;
   border: 15px solid #502d16;
   border-bottom: none;
+  border-top: none;
   box-shadow: 5px 2px 0px 1px #0a0a0a;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: gray;
+    outline: 10px dashed gray;
+    margin: 0 auto;
+    box-shadow: 0px 0px 0px 1px #0a0a0a;
+  }
 
   img {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
   }
 
   p {
@@ -73,8 +102,30 @@ export default {
     top: 0;
     left: 0;
     z-index: -1;
-    opacity: 0.5;
+    opacity: 0.4;
     border-radius: 0%;
+  }
+
+  .content {
+    .image-name {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin: 7% 3%;
+
+      h1 {
+        @include adaptiv-font(18, 12);
+        font-weight: 700;
+        margin-left: 10px;
+      }
+
+      img {
+        width: 50px;
+        height: 50px;
+        border: 2px solid #502d16;
+      }
+    }
   }
 
   .online-status {
@@ -82,7 +133,7 @@ export default {
     bottom: 0;
     right: 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-end;
     justify-content: flex-end;
     font-family: 'Caveat', cursive;
@@ -91,7 +142,7 @@ export default {
     p {
       @include adaptiv-font(14, 10);
 
-      &:last-child {
+      b {
         color: rgb(79, 79, 79);
       }
     }

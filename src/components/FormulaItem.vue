@@ -1,5 +1,6 @@
 <template>
-  <author-item :author="formula.author" />
+  <author-item v-if="formula.author !== null" :author="formula.author" />
+  <author-item v-else :author="null_user" />
   <div class="formula-css">
     <img class="texture" src="@/assets/background/paper-text.jpg">
     <div class="content">
@@ -11,7 +12,7 @@
       <div v-for="aspect in formula.aspects" :key="aspect.stroke" class="row">
         <div class="strokes">
           <p class="stroke">{{ aspect.stroke }}. {{ aspect.aspect }}</p>
-          <p class="stroke">{{ aspect.count }} {{ aspect.unit }}</p>
+          <p class="stroke">{{ aspect.count }} {{ unit_ultra_computed(aspect.unit, aspect.count) }}</p>
         </div>
         <div class="divider"></div>
       </div>
@@ -56,18 +57,49 @@ export default {
   created() {
     console.log(this.formula);
   },
+  methods: {
+    unit_ultra_computed(unit, count) {
+      let current_unit = unit
+      const current_count = String(count);
+
+      if (current_count[-1] in [2, 3, 4]) {
+        current_unit = current_unit + 'а';
+        return current_unit;
+      }
+      else if (current_count[-1] in [5, 6, 7, 8, 9, 0]) {
+        current_unit = current_unit + 'ов';
+        return current_unit;
+      }
+      else {
+        return current_unit;
+      }
+    },
+  },
   computed: {
     dateFormatter() {
-      const date = this.formula.date
-      let result_date = new Date(date.slice(0, 4), Number(date.slice(5, 7)) - 1, date.slice(8, 10));
-      let formatter = new Intl.DateTimeFormat("ru", {
+      const date = this.formula.date;
+      const year = Number(date.slice(0, 4));
+      const month = Number(date.slice(5, 7)) - 1;
+      const day = Number(date.slice(8, 10));
+
+      const result_date = new Date(year, month, day);
+
+      const formatter = new Intl.DateTimeFormat("ru", {
         year: "numeric",
         month: "long",
         day: "numeric"
       });
+
       return formatter.format(result_date);
     },
-  }
+    null_user() {
+      return {
+        displayName: "Автор неизвестен",
+        createdAt: "Нет",
+      }
+    },
+
+  },
 }
 
 
@@ -135,18 +167,6 @@ export default {
     opacity: 0.4;
   }
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background-color: gray;
-    outline: 4px dashed gray;
-    margin: 0 auto;
-    box-shadow: 0px 0px 0px 1px #0a0a0a;
-  }
 }
 
 .strokes {
