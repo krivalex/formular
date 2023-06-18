@@ -59,19 +59,25 @@ export default {
   },
   methods: {
     unit_ultra_computed(unit, count) {
-      let current_unit = unit
-      const current_count = String(count);
+      let current_unit = unit;
+      let current_count = String(count);
+      let lastDigit = current_count[current_count.length - 1];
 
-      if (current_count[-1] in [2, 3, 4]) {
+      if (["2", "3", "4"].includes(lastDigit)) {
+        console.log('2, 3, 4');
         current_unit = current_unit + 'а';
         return current_unit;
-      }
-      else if (current_count[-1] in [5, 6, 7, 8, 9, 0]) {
+      } else if (["5", "6", "7", "8", "9", "0"].includes(lastDigit)) {
+        console.log('5, 6, 7, 8, 9, 0');
         current_unit = current_unit + 'ов';
         return current_unit;
-      }
-      else {
-        return current_unit;
+      } else {
+        if (["грамм", "миллилитр", "килограмм", "литр"].includes(current_unit)) {
+          return current_unit;
+        } else {
+          current_unit = current_unit + 'а';
+          return current_unit;
+        }
       }
     },
   },

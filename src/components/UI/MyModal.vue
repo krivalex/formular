@@ -35,6 +35,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
   display: flex;
+  overflow-y: auto;
 }
 
 .dialog-content {
