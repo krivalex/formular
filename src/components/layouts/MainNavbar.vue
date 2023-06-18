@@ -8,7 +8,7 @@
 
     <div class="item">
       <i class="fa fa-search"></i>
-      <input v-model="search" @input="searchInput" type="search" placeholder="Поиск" />
+      <input v-model="searchReactive" @input="searchInput" type="search" placeholder="Поиск" />
     </div>
 
     <div class="enter">
@@ -45,8 +45,6 @@ export default {
       const store = useFormulaStore();
       store.setSearchQuery(this.search);
       store.searchFormulas();
-      console.log(store.getterSearchQuery);
-      console.log(store.getterSearchedFormulas);
     },
   },
   data() {
@@ -61,7 +59,19 @@ export default {
       return this.formulas.filter(formula => {
         return formula.name.toLowerCase().includes(this.search.toLowerCase())
       })
-    }
+    },
+    searchReactive: {
+      get() {
+        const store = useFormulaStore();
+        return store.getterSearchQuery;
+      },
+      set() {
+        const store = useFormulaStore();
+        store.setSearchQuery(this.search);
+        store.searchFormulas();
+        return
+      }
+    },
   },
 }
 

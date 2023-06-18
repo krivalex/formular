@@ -61,14 +61,7 @@ export const useFormulaStore = defineStore('main', {
             })
           })
 
-          console.log('name_check', name_check)
-          console.log('description_check', description_check)
-          console.log('category_check', category_check)
-          console.log('kitchen_check', kitchen_check)
-          console.log('aspects_check', aspects_check)
-
           if (name_check || description_check || aspects_check || category_check || kitchen_check) {
-            console.log('doc.data()', doc.data())
             uniqueFormulas.add(doc.data())
             this.searched_formulas = Array.from(uniqueFormulas)
             return this.searched_formulas

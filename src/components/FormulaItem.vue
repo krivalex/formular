@@ -20,8 +20,8 @@
       </div>
 
       <div class="category-kitchen">
-        <p>{{ formula.category }}</p>
-        <p>{{ formula.kitchen }}</p>
+        <p @click="searchStart(formula.category)">{{ formula.category }}</p>
+        <p @click="searchStart(formula.kitchen)">{{ formula.kitchen }}</p>
       </div>
 
       <div class="flex-row diffuculty-date">
@@ -44,6 +44,8 @@
 <script>
 import StarRating from 'vue-star-rating';
 import AuthorItem from './AuthorItem.vue';
+
+import { useFormulaStore } from "@/store/formulaStore.js";
 
 export default {
   name: "formula-item",
@@ -77,6 +79,11 @@ export default {
           return current_unit;
         }
       }
+    },
+    searchStart(searchItem) {
+      const store = useFormulaStore();
+      store.setSearchQuery(searchItem);
+      store.searchFormulas();
     },
   },
   computed: {

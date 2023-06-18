@@ -137,6 +137,12 @@ export default {
       image.style.zIndex = `1`;
 
       image.classList.add('floating-animation');
+
+      // Добавляем обработчики событий для перемещения
+      image.addEventListener('mousedown', this.startDrag);
+      image.addEventListener('mousemove', this.drag);
+      image.addEventListener('mouseup', this.endDrag);
+      image.addEventListener('dblclick', this.doubleClick);
     });
   },
   methods: {
@@ -166,9 +172,57 @@ export default {
       document.head.appendChild(styleSheet);
 
       return animationName;
+    },
+    startDrag(event) {
+      // Начало перемещения
+      event.preventDefault();
+      this.draggableElement = event.target;
+      this.initialX = event.clientX - this.draggableElement.offsetLeft;
+      this.initialY = event.clientY - this.draggableElement.offsetTop;
+
+      this.draggableElement.style.animationPlayState = 'paused';
+    },
+    drag(event) {
+      // Перемещение в процессе
+      if (this.draggableElement) {
+        event.preventDefault();
+        const newX = event.clientX - this.initialX;
+        const newY = event.clientY - this.initialY;
+        this.draggableElement.style.left = `${newX}px`;
+        this.draggableElement.style.top = `${newY}px`;
+      }
+    },
+    endDrag() {
+      this.draggableElement.style.animationPlayState = 'running';
+      this.draggableElement = null;
+    },
+    doubleClick(event) {
+      // Плавное движение при двойном клике
+      const image = event.target;
+      const currentX = parseFloat(image.style.left);
+      const currentY = parseFloat(image.style.top);
+
+      const randomX = Math.random() < 0.5 ? currentX + 50 : currentX - 50;
+      const randomY = Math.random() < 0.5 ? currentY + 50 : currentY - 50;
+
+      image.style.transition = 'left 4s, top 4s'; // Добавляем переходы для свойств left и top
+      image.style.left = `${randomX}px`;
+      image.style.top = `${randomY}px`;
+
+      // Сброс переходов после задержки
+      setTimeout(() => {
+        image.style.transition = '';
+      }, 4000); // Задержка в течение 0.5 секунды для завершения плавного движения
+    }
+  },
+  data() {
+    return {
+      draggableElement: null,
+      initialX: null,
+      initialY: null
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -187,6 +241,10 @@ export default {
     position: absolute;
     z-index: 10;
     cursor: pointer;
+
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 }
 </style>
