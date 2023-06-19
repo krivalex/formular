@@ -1,24 +1,7 @@
 # formular
 
-## Project setup
-```
-npm install
-```
+Vue 3, JS, SCSS, PINIA, FIREBASE
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Веб-приложение - для хранения всех своих рецептов и просмотров чужих.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Задний фон генерируется, с ним много активностей. Все элементы нарисованы в SCSS, все что должно масштабироваться - масштабируется через миксины.
