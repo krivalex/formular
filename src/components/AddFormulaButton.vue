@@ -6,20 +6,30 @@
 
       <h1 class="label">Добавить новый рецепт</h1>
 
-      <input v-model="name" @input="nameInput" type="text" class="input" placeholder="Название рецепта" />
+      <input v-model="name" @input="nameInput" type="text" class="name" placeholder="Название рецепта" />
 
-      <star-rating v-model:rating="difficult" :animate="true" :show-rating="false" :star-size="25"
-        :active-color="['#a1eb34', '#ebd934', '#eb9f34', '#eb5f34', '#eb3d34']" :active-border-color="['#a8c3c0']"
-        :border-width="4" :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
-        :active-on-click="true" :clearable="true" :padding="3"></star-rating>
+      <div class="label-small">
+        <span>Как приготовить?</span>
+      </div>
 
-      <v-select v-model="reactive_category" :reduce="(option) => option.value" :options="category_options" />
+      <textarea v-model="description" @input="descriptionInput" class="textarea"
+        placeholder="Краткое описание"></textarea>
 
-      <v-select v-model="reactive_kitchen" :reduce="(option) => option.value" :options="kitchen_options" />
 
-      <textarea v-model="description" @input="descriptionInput" class="textarea" placeholder="Описание"></textarea>
 
-      <input v-model="link" @input="linkInput" type="text" class="input" placeholder="Ссылка, чтобы не потерять" />
+      <div class="label-small">
+        <span>Категории</span>
+      </div>
+
+      <v-select v-model="reactive_category" :reduce="(option) => option.value" :options="category_options"
+        placeholder="Выберите категорию блюда" />
+
+      <v-select v-model="reactive_kitchen" :reduce="(option) => option.value" :options="kitchen_options"
+        placeholder="Выберите кухню" />
+
+
+
+
 
       <div v-for="stroke in reactiveStrokes" :key="stroke.id" class="all-aspects">
         <one-stroke v-model:stroke="stroke.id" @:update:stroke="this.$emit('update:stroke', stroke.id)" />
@@ -41,6 +51,17 @@
           </label>
         </form>
       </div>
+
+      <input v-model="link" @input="linkInput" type="text" class="input" placeholder="Ссылка, чтобы не потерять" />
+
+      <div class="label-small">
+        <span>Сложность</span>
+      </div>
+
+      <star-rating v-model:rating="difficult" :animate="true" :show-rating="false" :star-size="25"
+        :active-color="['#a1eb34', '#ebd934', '#eb9f34', '#eb5f34', '#eb3d34']" :active-border-color="['#a8c3c0']"
+        :border-width="4" :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
+        :active-on-click="true" :clearable="true" :padding="3"></star-rating>
 
       <div class="final-actions">
         <button @click="addFormula" class="button is-primary">Добавить</button>
@@ -231,8 +252,47 @@ export default {
       padding: 0 10px;
     }
 
+    textarea {
+      @include adaptiv-font(20, 20);
+      width: 100%;
+      height: 150px;
+      border: 1px solid black;
+      outline: none;
+      padding: 0 10px;
+      margin-top: 3%;
+    }
+
     input::placeholder {
       text-align: center;
+    }
+
+    .vue-star-rating {
+      justify-content: center;
+    }
+
+    .v-select {
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .label {
+      @include adaptiv-font(28, 15);
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      text-align: center;
+    }
+
+    .label-small {
+      @include adaptiv-font(22, 15);
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      text-align: center;
+      margin-top: 7%;
+    }
+
+    .name {
+      @include adaptiv-font(28, 15);
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      text-align: center;
+      margin-top: 7%;
     }
   }
 }

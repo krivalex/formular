@@ -1,9 +1,10 @@
 <template>
   <div class="aspect">
-    <p class="number">{{ this.stroke }}</p>
+    <p class="number">{{ this.stroke }}.</p>
     <input v-model="aspect" type="text" class="aspect-name" placeholder="Ингредиент" />
     <input v-model="count" type="number" class="unit" />
-    <v-select v-model="reactive_unit" :reduce="(option) => option.value" :options="unit_options" />
+    <v-select v-model="reactive_unit" :reduce="(option) => option.value" :options="unit_options"
+      placeholder="Измерение" />
     <i class="fa fa-trash" aria-hidden="true" @click="deleteRow"></i>
   </div>
 </template>
@@ -133,3 +134,59 @@ export default {
 }
 
 </script>
+
+<style lang="scss">
+@import "@/assets/style.scss";
+
+.aspect {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+
+  .v-select {
+    width: 120px;
+    border: none;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .vs__search {
+    display: none;
+  }
+
+  .vs__dropdown-toggle {
+    padding: 8% 0;
+  }
+
+  input {
+    padding: 5px;
+    width: 33%;
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    color: black;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+
+    &:focus {
+      border-bottom: 1px solid red;
+    }
+  }
+
+  .unit {
+    width: 20%;
+  }
+
+  .aspect-name {
+    width: 50%;
+  }
+
+  .number {
+    padding: 5px;
+    font-style: "Montserrat", sans-serif;
+  }
+}
+</style>
+
