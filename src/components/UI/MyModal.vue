@@ -58,6 +58,7 @@ export default {
       height: 50px;
       background-position: center;
       background-size: cover;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     }
 
     .right-down {
@@ -70,6 +71,7 @@ export default {
       background-position: center;
       background-size: cover;
       z-index: -1;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     }
 
     .left-down {
@@ -82,6 +84,7 @@ export default {
       background-position: center;
       background-size: cover;
       z-index: -1;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     }
   }
 }

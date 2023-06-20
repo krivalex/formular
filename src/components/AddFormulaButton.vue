@@ -2,11 +2,13 @@
   <div class="button-add" @click="openModal">
     <i class="fa fa-plus" aria-hidden="true"></i>
 
-    <my-modal :show="showModal" @:update:model="openModal">
+    <my-modal :show="showModal" @:update:model="openModal" class="content-modal">
 
-      <input v-model="name" @input="nameInput" type="text" class="input" placeholder="Название" />
+      <h1 class="label">Добавить новый рецепт</h1>
 
-      <star-rating v-model:rating="difficult" :animate="true" :show-rating="false"
+      <input v-model="name" @input="nameInput" type="text" class="input" placeholder="Название рецепта" />
+
+      <star-rating v-model:rating="difficult" :animate="true" :show-rating="false" :star-size="25"
         :active-color="['#a1eb34', '#ebd934', '#eb9f34', '#eb5f34', '#eb3d34']" :active-border-color="['#a8c3c0']"
         :border-width="4" :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
         :active-on-click="true" :clearable="true" :padding="3"></star-rating>
@@ -28,8 +30,15 @@
           <i class="fa fa-plus" aria-hidden="true"></i>
           Добавить строку
         </button>
-        <form enctype="multipart/form-data" method="post">
-          <input @input="convertToBinary" type="file" name="file" />
+        <form class="input__wrapper" enctype="multipart/form-data">
+          <my-input id="input__file" class="input input__file" name="images" type="file" accept=".jpg, .png"
+            @input="imagesInput"></my-input>
+          <label for="input__file" class="input__file-button">
+            <span class="input__file-icon-wrapper">
+              <img class="input__file-icon" src="@/assets/camera-icon.svg" alt="Выбрать файл" width="25">
+            </span>
+            <span class="input__file-button-text">Выберите файл</span>
+          </label>
         </form>
       </div>
 
@@ -98,7 +107,7 @@ export default {
         id: this.strokes.length + 1,
       });
     },
-    async convertToBinary(e) {
+    async imagesInput(e) {
       const Fstore = useCreatedFormulaStore();
       this.image = e.target.files[0];
       await Fstore.setFormulaImage(this.image);
@@ -208,6 +217,84 @@ export default {
     color: white;
     -webkit-text-stroke: 1px black;
   }
+
+  .content-modal {
+
+    input {
+      @include adaptiv-font(20, 20);
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-bottom: 1px solid black;
+      outline: none;
+      background-color: transparent;
+      padding: 0 10px;
+    }
+
+    input::placeholder {
+      text-align: center;
+    }
+  }
+}
+
+.input__wrapper {
+  width: 100%;
+  position: relative;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.input__file {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+
+.input__file-icon-wrapper {
+  height: 45px;
+  width: 60px;
+  margin-right: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-right: 1px solid #fff;
+}
+
+.input__file-button-text {
+  line-height: 1;
+  margin-top: 1px;
+}
+
+.input__file-icon {
+  filter: brightness(0) invert(1);
+}
+
+.input__file-button {
+  width: 100%;
+  max-width: 290px;
+  height: 45px;
+  background: black;
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 700;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 0;
 }
 </style>
 
