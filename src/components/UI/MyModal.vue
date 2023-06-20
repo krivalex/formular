@@ -42,19 +42,56 @@ export default {
   overflow-y: auto;
 
   .dialog-content {
-    background-color: #908f8f;
+    background-color: #ffffff;
     margin: auto;
     padding: 17px 30px;
-    border-radius: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     min-width: 50px;
     min-height: 300px;
+    position: relative;
+
+    .bottom-center {
+      position: absolute;
+      width: 120%;
+      bottom: -10%;
+      left: -10%;
+      height: 50px;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .right-down {
+      position: absolute;
+      width: 50px;
+      height: 160%;
+      bottom: -50%;
+      left: 10%;
+      transform: rotate(10deg);
+      background-position: center;
+      background-size: cover;
+      z-index: -1;
+    }
+
+    .left-down {
+      position: absolute;
+      width: 50px;
+      height: 160%;
+      bottom: -50%;
+      right: 10%;
+      transform: rotate(-10deg);
+      background-position: center;
+      background-size: cover;
+      z-index: -1;
+    }
   }
 }
 
 .wood {
   background: url('@/assets/background/wood.jpg');
+  filter: contrast(1.2);
 }
+
+
 
 
 
