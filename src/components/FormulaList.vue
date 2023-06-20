@@ -1,6 +1,6 @@
 <template>
   <section id="formula-list">
-    <div class="formula-list-item" v-for="formula in formulas" :key="formula.id">
+    <div :key="formula.id" class="formula-list-item" v-for="formula in formulas">
       <formula-item :formula="formula" />
     </div>
   </section>
@@ -24,32 +24,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$maxWidth: 1280;
-
-@mixin adaptiv-width($pcSize, $mobSize) {
-  $addSize: $pcSize - $mobSize;
-  $maxWidth: $maxWidth - 320;
-  max-width: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
-}
-
-@mixin adaptiv-height($pcSize, $mobSize) {
-  $addSize: $pcSize - $mobSize;
-  $maxWidth: $maxWidth - 320;
-  min-height: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
-}
-
-@mixin adaptiv-gap($pcSize, $mobSize) {
-  $addSize: $pcSize - $mobSize;
-  $maxWidth: $maxWidth - 320;
-  gap: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
-}
+@import "@/assets/style.scss";
 
 #formula-list {
   display: flex;
-  @include adaptiv-gap(80, 30);
+  @include adaptiv-gap(50, 30);
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  @include adaptiv-margin-top(100, 50);
 
 }
 
@@ -58,7 +41,18 @@ $maxWidth: 1280;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  @include adaptiv-width(450, 300);
-  @include adaptiv-height(700, 400);
+}
+
+.destoyed-enter-active,
+.destoyed-leave-active {
+  transition: opacity 0.5s;
+  transform: rotate3d(1, 0, 0, 0deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.destoyed-enter-from,
+.destoyed-leave-to {
+  opacity: 0;
+  transform: rotate3d(1, 0, 0, 180deg);
 }
 </style>

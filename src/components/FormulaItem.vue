@@ -1,42 +1,44 @@
 <template>
-  <author-item v-if="formula.author !== null" :author="formula.author" />
-  <author-item v-else :author="null_user" />
-  <div class="formula-css">
-    <img class="texture" src="@/assets/background/paper-text.jpg">
-    <div class="content">
+  <div class="formula-item">
+    <author-item v-if="formula.author !== null" :author="formula.author" />
+    <author-item v-else :author="null_user" />
+    <div class="formula-css">
+      <img class="texture" src="@/assets/background/paper-text.jpg">
+      <div class="content">
 
-      <h1>{{ formula.name }}</h1>
+        <h1>{{ formula.name }}</h1>
 
-      <img class="main-image" :src="formula.image_link" alt="formula image" />
+        <img class="main-image" :src="formula.image_link" alt="formula image" />
 
-      <p class="formula-description">{{ formula.description }}</p>
+        <p class="formula-description">{{ formula.description }}</p>
 
-      <div v-for="aspect in formula.aspects" :key="aspect.stroke" class="row">
-        <div class="strokes">
-          <p class="stroke">{{ aspect.stroke }}. {{ aspect.aspect }}</p>
-          <p class="stroke">{{ aspect.count }} {{ unit_ultra_computed(aspect.unit, aspect.count) }}</p>
-        </div>
-        <div class="divider"></div>
-      </div>
-
-      <div class="category-kitchen">
-        <p @click="searchStart(formula.category)">{{ formula.category }}</p>
-        <p @click="searchStart(formula.kitchen)">{{ formula.kitchen }}</p>
-      </div>
-
-      <div class="flex-row diffuculty-date">
-        <div class="difficulty">
-          <div class="difficulty-text">
-            <p>{{ diffucult_preview }}</p>
+        <div v-for="aspect in formula.aspects" :key="aspect.stroke" class="row">
+          <div class="strokes">
+            <p class="stroke">{{ aspect.stroke }}. {{ aspect.aspect }}</p>
+            <p class="stroke">{{ aspect.count }} {{ unit_ultra_computed(aspect.unit, aspect.count) }}</p>
           </div>
-          <star-rating :star-size="15" :show-rating="false" :read-only="true" :rating="formula.difficulty"
-            :active-color="['#a1eb34', '#ebd934', '#eb9f34', '#eb5f34', '#eb3d34']" :active-border-color="['#a8c3c0']"
-            :border-width="4"
-            :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]" />
+          <div class="divider"></div>
         </div>
-        <p>{{ dateFormatter }}</p>
-      </div>
 
+        <div class="category-kitchen">
+          <p @click="searchStart(formula.category)">{{ formula.category }}</p>
+          <p @click="searchStart(formula.kitchen)">{{ formula.kitchen }}</p>
+        </div>
+
+        <div class="flex-row diffuculty-date">
+          <div class="difficulty">
+            <div class="difficulty-text">
+              <p>{{ diffucult_preview }}</p>
+            </div>
+            <star-rating :star-size="15" :show-rating="false" :read-only="true" :rating="formula.difficulty"
+              :active-color="['#a1eb34', '#ebd934', '#eb9f34', '#eb5f34', '#eb3d34']" :active-border-color="['#a8c3c0']"
+              :border-width="4"
+              :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]" />
+          </div>
+          <p>{{ dateFormatter }}</p>
+        </div>
+
+      </div>
     </div>
   </div>
 </template>
@@ -127,7 +129,15 @@ export default {
           return "«Сложность не указана»";
       }
     },
-  }
+  },
+  beforeUnmount() {
+    // create animation of destroying
+    document.querySelector(".formula-item").classList.add("destroy");
+  },
+  mounted() {
+    // create animation of creating
+    document.querySelector(".formula-item").classList.add("create");
+  },
 };
 
 
@@ -135,6 +145,34 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/style.scss";
+
+.destroy {
+  animation: destroy 0.3s ease-in-out;
+}
+
+.create {
+  animation: create 0.3s ease-in-out;
+}
+
+@keyframes destroy {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes create {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
 
 .formula-css {
   @include adaptiv-font(18, 12);

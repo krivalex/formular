@@ -19,6 +19,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/style.scss";
+
 .profile {
   display: flex;
   justify-content: center;
@@ -30,8 +32,8 @@ export default {
   max-height: 100%;
 
   .profile-circle {
-    width: 30px;
-    height: 30px;
+    @include adaptiv-width(40, 20);
+    @include adaptiv-height(40, 20);
     border-radius: 50%;
     overflow: hidden;
 

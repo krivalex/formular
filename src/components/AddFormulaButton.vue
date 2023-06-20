@@ -185,3 +185,11 @@ export default {
 
 </script>
 
+<style lang="scss" scoped>
+.button-add {
+  position: fixed;
+  bottom: 20px;
+  right: 0%;
+}
+</style>
+

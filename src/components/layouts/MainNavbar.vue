@@ -8,7 +8,7 @@
 
     <div class="item">
       <i class="fa fa-search"></i>
-      <input v-model="searchReactive" @input="searchInput" type="search" placeholder="Поиск" />
+      <input v-model.lazy="searchReactive" @input="searchInput" type="search" placeholder="Поиск по всему" />
     </div>
 
     <div class="enter">
@@ -41,7 +41,8 @@ export default {
     });
   },
   methods: {
-    searchInput() {
+    searchInput(event) {
+      this.search = event.target.value;
       const store = useFormulaStore();
       store.setSearchQuery(this.search);
       store.searchFormulas();
@@ -92,8 +93,9 @@ nav {
   padding-top: 0px;
   padding-bottom: 0px;
   z-index: 500;
-  border: 5px solid #502d16;
-  background: #f7c09b;
+  border-bottom: 5px solid #502d16;
+  background: url('@/assets/background/paper-text.jpg');
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
   a {
     text-decoration: none;
@@ -106,6 +108,37 @@ nav {
     display: flex;
     align-items: center;
     flex-direction: row;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-right: 20px;
+    margin-left: 20px;
+
+    i {
+      margin-right: 5px;
+      @include adaptiv-font(25, 15);
+    }
+
+    input {
+      @include adaptiv-font(25, 15);
+      border: none;
+      border-bottom: 2px solid black;
+      outline: none;
+      background: transparent;
+      color: #000;
+      width: 70%;
+      height: 100%;
+    }
+
+    input::placeholder {
+      text-align: center;
+      @include adaptiv-font(25, 15);
+    }
   }
 }
 </style>

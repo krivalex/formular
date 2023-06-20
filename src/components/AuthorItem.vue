@@ -66,7 +66,6 @@ export default {
   position: relative;
   background-color: #f1f7c1;
   margin: 0 auto;
-  margin-top: 50px;
   border: 15px solid #502d16;
   border-bottom: none;
   border-top: none;
@@ -103,12 +102,15 @@ export default {
   }
 
   .content {
+    height: 100%;
+
     .image-name {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      margin: 7% 3%;
+      margin: 3% 3%;
+      height: 100%;
 
       h1 {
         @include adaptiv-font(18, 12);

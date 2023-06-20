@@ -5,6 +5,7 @@
     </router-view>
   </BG>
   <AddFormulaButton />
+  <div class="krivalex">@krivalex</div>
 </template>
 
 <script>
@@ -21,3 +22,18 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/style.scss";
+
+.krivalex {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+  @include adaptiv-font(15, 12);
+  color: #fff;
+  z-index: 500;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+</style>
