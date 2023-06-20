@@ -1,6 +1,6 @@
 <template>
   <div class="button-add" @click="openModal">
-    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+    <i class="fa fa-plus" aria-hidden="true"></i>
 
     <my-modal :show="showModal" @:update:model="openModal">
 
@@ -186,10 +186,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/style.scss";
+
 .button-add {
   position: fixed;
-  bottom: 20px;
-  right: 0%;
+  bottom: 1%;
+  right: 1%;
+  @include adaptiv-height(100, 30);
+  @include adaptiv-width(100, 30);
+  z-index: 500;
+
+
+  .fa-plus {
+    @include adaptiv-font(80, 40);
+    width: 100%;
+    height: 100%;
+    z-index: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    -webkit-text-stroke: 1px black;
+  }
 }
 </style>
 
