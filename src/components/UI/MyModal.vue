@@ -30,6 +30,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/style.scss";
+
 .dialog {
   top: 0;
   left: 0;

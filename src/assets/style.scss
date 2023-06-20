@@ -81,6 +81,12 @@ $maxWidth: 1280;
   gap: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
 }
 
+@mixin adaptiv-scale($pcSize, $mobSize) {
+  $addSize: $pcSize - $mobSize;
+  $maxWidth: $maxWidth - 320;
+  transform: scale(calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth})));
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

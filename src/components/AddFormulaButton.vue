@@ -448,19 +448,19 @@ export default {
       .border {
         width: 10%;
         background-color: #ffe993;
-        height: 23px;
+        height: 30px;
         border: 2px solid black;
         border-right: none;
       }
 
       .spooky {
         position: relative;
-        width: 10%;
-        height: 32px;
+        width: 15%;
+        height: 38px;
         background-color: black;
         border-radius: 50%;
-        border-top-left-radius: 90%;
-        border-bottom-left-radius: 90%;
+        border-top-left-radius: 120%;
+        border-bottom-left-radius: 120%;
         margin-right: -10px;
       }
     }
