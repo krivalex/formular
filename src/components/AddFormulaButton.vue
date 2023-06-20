@@ -4,47 +4,62 @@
 
     <my-modal :show="showModal" @:update:model="openModal" class="content-modal">
 
-      <h1 class="label">Добавить новый рецепт</h1>
+      <div class="paper">
 
-      <input v-model="name" @input="nameInput" type="text" class="name" placeholder="Название рецепта" />
+        <h1 class="label">Добавить новый рецепт</h1>
 
-      <div class="label-small">
-        <span>Как приготовить?</span>
-      </div>
+        <input v-model="name" @input="nameInput" type="text" class="name" placeholder="Название рецепта" />
 
-      <textarea v-model="description" @input="descriptionInput" class="textarea"
-        placeholder="Краткое описание"></textarea>
-
-
-
-      <div class="label-small">
-        <span>Категории</span>
-      </div>
-
-      <v-select v-model="reactive_category" :reduce="(option) => option.value" :options="category_options"
-        placeholder="Выберите категорию блюда" />
-
-      <v-select v-model="reactive_kitchen" :reduce="(option) => option.value" :options="kitchen_options"
-        placeholder="Выберите кухню" />
-
-      <div class="label-small">
-        <span>Ингредиенты</span>
-      </div>
-
-      <div v-for="stroke in reactiveStrokes" :key="stroke.id" class="all-aspects">
-        <one-stroke v-model:stroke="stroke.id" @:update:stroke="this.$emit('update:stroke', stroke.id)" />
-      </div>
-
-      <div class="stroke-actions">
-
-        <div class="hand-item">
-          <div class="spooky"></div>
-          <div class="border"></div>
-          <button class="button add-row" @click="addRow">
-            Добавить еще один
-            <i class="fa fa-plus" aria-hidden="true"></i>
-          </button>
+        <div class="label-small">
+          <span>Как приготовить?</span>
         </div>
+
+        <textarea v-model="description" @input="descriptionInput" class="textarea"
+          placeholder="Краткое описание"></textarea>
+
+        <input v-model="link" @input="linkInput" type="text" class="input" placeholder="Ссылка на исходник" />
+
+        <div class="label-small">
+          <span>Категории</span>
+        </div>
+
+        <v-select v-model="reactive_category" :reduce="(option) => option.value" :options="category_options"
+          placeholder="Выберите категорию блюда" />
+
+        <v-select v-model="reactive_kitchen" :reduce="(option) => option.value" :options="kitchen_options"
+          placeholder="Выберите кухню" />
+
+        <div class="label-small">
+          <span>Ингредиенты</span>
+        </div>
+
+        <div v-for="stroke in reactiveStrokes" :key="stroke.id" class="all-aspects">
+          <one-stroke :refresh="refresh" v-model:stroke="stroke.id"
+            @:update:stroke="this.$emit('update:stroke', stroke.id)" />
+        </div>
+
+        <div class="stroke-actions">
+
+          <div class="hand-item">
+            <div class="spooky"></div>
+            <div class="border"></div>
+            <button class="button add-row" @click="addRow">
+              Добавить еще один
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+
+        <div class="label-small">
+          <span>Сложность готовки</span>
+        </div>
+
+        <star-rating v-model:rating="difficult" :animate="true" :show-rating="false" :star-size="25"
+          :active-color="['#a1eb34', '#ebd934', '#eb9f34', '#eb5f34', '#eb3d34']" :active-border-color="['#a8c3c0']"
+          :border-width="4" :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
+          :active-on-click="true" :clearable="true" :padding="3"></star-rating>
+
 
         <form class="input__wrapper" enctype="multipart/form-data">
           <my-input id="input__file" class="input input__file" name="images" type="file" accept=".jpg, .png"
@@ -53,25 +68,17 @@
             <span class="input__file-icon-wrapper">
               <img class="input__file-icon" src="@/assets/camera-icon.svg" alt="Выбрать файл" width="25">
             </span>
-            <span class="input__file-button-text">Выберите файл</span>
+            <span class="input__file-button-text">Фото блюда</span>
           </label>
         </form>
-      </div>
 
-      <input v-model="link" @input="linkInput" type="text" class="input" placeholder="Ссылка, чтобы не потерять" />
 
-      <div class="label-small">
-        <span>Сложность</span>
-      </div>
 
-      <star-rating v-model:rating="difficult" :animate="true" :show-rating="false" :star-size="25"
-        :active-color="['#a1eb34', '#ebd934', '#eb9f34', '#eb5f34', '#eb3d34']" :active-border-color="['#a8c3c0']"
-        :border-width="4" :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
-        :active-on-click="true" :clearable="true" :padding="3"></star-rating>
+        <div class="final-actions">
+          <button @click="addFormula" class="button is-primary">Добавить</button>
+          <button @click="clearFormula" class="button is-danger">Отмена</button>
+        </div>
 
-      <div class="final-actions">
-        <button @click="addFormula" class="button is-primary">Добавить</button>
-        <button class="button is-danger">Отмена</button>
       </div>
 
     </my-modal>
@@ -104,7 +111,10 @@ export default {
       showModal: false,
       name: "",
       image: "",
+      link: "",
       difficult: 0,
+      description: "",
+      refresh: false,
       strokes: [
         {
           id: 1,
@@ -113,15 +123,18 @@ export default {
     };
   },
   methods: {
-    nameInput() {
+    nameInput(event) {
+      this.name = event.target.value;
       const Fstore = useCreatedFormulaStore();
       Fstore.setFormulaName(this.name);
     },
-    descriptionInput() {
+    descriptionInput(event) {
+      this.description = event.target.value;
       const Fstore = useCreatedFormulaStore();
       Fstore.setFormulaDescription(this.description);
     },
-    linkInput() {
+    linkInput(event) {
+      this.link = event.target.value;
       const Fstore = useCreatedFormulaStore();
       Fstore.setFormulaLink(this.link);
     },
@@ -142,7 +155,63 @@ export default {
     async addFormula() {
       const Fstore = useCreatedFormulaStore();
       await Fstore.addFormula();
+
+      const container = document.querySelector('.paper');
+      container.classList.add('animate-paper-up');
+      container.scrollTop = 0;
+
+      setTimeout(() => {
+        const store = useCreatedFormulaStore();
+
+        store.clearFormula();
+
+        this.name = "";
+        this.image = "";
+        this.difficult = 0;
+        this.link = "";
+        this.description = "";
+        this.refresh = true;
+        this.strokes = [
+          {
+            id: 1,
+          },
+        ];
+
+
+        setTimeout(() => {
+          container.classList.remove('animate-paper-up');
+        }, 3000);
+      }, 2000);
     },
+    clearFormula() {
+      const container = document.querySelector('.paper');
+      container.classList.add('animate-paper');
+      container.scrollTop = 0;
+
+      setTimeout(() => {
+        const store = useCreatedFormulaStore();
+
+        store.clearFormula();
+
+        this.name = "";
+        this.image = "";
+        this.difficult = 0;
+        this.link = "";
+        this.description = "";
+        this.refresh = true;
+        this.strokes = [
+          {
+            id: 1,
+          },
+        ];
+
+
+        setTimeout(() => {
+          container.classList.remove('animate-paper');
+          this.refresh = false;
+        }, 3000);
+      }, 2000);
+    }
   },
   created() {
     watch(
@@ -223,6 +292,49 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/style.scss";
+
+.paper {
+  background-color: white;
+  padding: 17px 30px;
+}
+
+.animate-paper {
+  animation: fold-paper 4s forwards;
+}
+
+.animate-paper-up {
+  animation: fold-paper-up 4s forwards;
+}
+
+@keyframes fold-paper {
+  0% {
+    transform: perspective(1000px) skewX(0deg) skewY(0deg) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0%) translateY(0%);
+
+  }
+
+  50% {
+    transform: perspective(1000px) skewX(0deg) skewY(0deg) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0%) translateY(120%);
+  }
+
+  100% {
+    transform: perspective(1000px) skewX(0deg) skewY(0deg) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0%) translateY(0%);
+  }
+}
+
+@keyframes fold-paper-up {
+  0% {
+    transform: perspective(1000px) skewX(0deg) skewY(0deg) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0%) translateY(0%);
+
+  }
+
+  50% {
+    transform: perspective(1000px) skewX(0deg) skewY(0deg) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0%) translateY(-120%);
+  }
+
+  100% {
+    transform: perspective(1000px) skewX(0deg) skewY(0deg) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0%) translateY(0%);
+  }
+}
 
 .button-add {
   position: fixed;
@@ -355,11 +467,36 @@ export default {
   }
 }
 
+.final-actions {
+  width: 100%;
+
+  .is-primary {
+    width: 50%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    @include adaptiv-font(30, 20);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #b5fc51;
+  }
+
+  .is-danger {
+    width: 50%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    @include adaptiv-font(30, 20);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #fc7951;
+  }
+}
+
 .input__wrapper {
   width: 100%;
   position: relative;
   margin-top: 15px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .input__file {
@@ -395,7 +532,7 @@ export default {
 
 .input__file-button {
   width: 100%;
-  max-width: 290px;
+  max-width: 200px;
   height: 45px;
   background: black;
   color: #fff;

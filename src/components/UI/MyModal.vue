@@ -42,10 +42,9 @@ export default {
   overflow-y: auto;
 
   .dialog-content {
-    background-color: #ffffff;
+    background-color: transparent;
     margin: auto;
     padding: 17px 30px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     min-width: 50px;
     min-height: 300px;
     position: relative;
@@ -53,7 +52,7 @@ export default {
     .bottom-center {
       position: absolute;
       width: 120%;
-      bottom: -10%;
+      bottom: -3%;
       left: -10%;
       height: 50px;
       background-position: center;

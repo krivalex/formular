@@ -24,6 +24,25 @@ export const useCreatedFormulaStore = defineStore('createdFormula', {
   }),
   getters: {},
   actions: {
+    clearFormula() {
+      this.formula = {
+        formulaID: null,
+        name: null,
+        image_link: null,
+        date: null,
+        author: null,
+        aspects: [],
+        likes: 0,
+        dislikes: 0,
+        difficulty: 0,
+        comments: [],
+        category: null,
+        kitchen: null,
+        description: null,
+        link: null,
+      }
+      return this.formula
+    },
     createFormulaID() {
       this.formula.formulaID = '_' + Math.random().toString(36).substr(2, 9)
       return this.formula.formulaID

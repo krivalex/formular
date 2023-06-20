@@ -25,6 +25,17 @@ export default {
       type: [Number, null],
       required: true,
     },
+    refresh: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  updated() {
+    if (this.refresh) {
+      this.aspect = "";
+      this.count = "";
+      this.unit = "";
+    }
   },
   data() {
     return {
