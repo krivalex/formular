@@ -187,6 +187,13 @@ export default {
     padding: 5px;
     font-style: "Montserrat", sans-serif;
   }
+
+  .fa-trash {
+    font-size: 20px;
+    padding: 5px;
+    color: red;
+    cursor: pointer;
+  }
 }
 </style>
 

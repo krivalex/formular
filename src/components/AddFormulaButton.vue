@@ -27,19 +27,25 @@
       <v-select v-model="reactive_kitchen" :reduce="(option) => option.value" :options="kitchen_options"
         placeholder="Выберите кухню" />
 
-
-
-
+      <div class="label-small">
+        <span>Ингредиенты</span>
+      </div>
 
       <div v-for="stroke in reactiveStrokes" :key="stroke.id" class="all-aspects">
         <one-stroke v-model:stroke="stroke.id" @:update:stroke="this.$emit('update:stroke', stroke.id)" />
       </div>
 
       <div class="stroke-actions">
-        <button class="button add-row" @click="addRow">
-          <i class="fa fa-plus" aria-hidden="true"></i>
-          Добавить строку
-        </button>
+
+        <div class="hand-item">
+          <div class="spooky"></div>
+          <div class="border"></div>
+          <button class="button add-row" @click="addRow">
+            Добавить еще один
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+
         <form class="input__wrapper" enctype="multipart/form-data">
           <my-input id="input__file" class="input input__file" name="images" type="file" accept=".jpg, .png"
             @input="imagesInput"></my-input>
@@ -285,7 +291,7 @@ export default {
       @include adaptiv-font(22, 15);
       font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
       text-align: center;
-      margin-top: 7%;
+      margin-top: 3%;
     }
 
     .name {
@@ -293,6 +299,58 @@ export default {
       font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
       text-align: center;
       margin-top: 7%;
+    }
+
+    .add-row {
+      @include adaptiv-font(18, 12);
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 75%;
+      background-color: #fcaa51;
+      border-top-right-radius: 45%;
+      border-bottom-right-radius: 45%;
+
+      .fa-plus {
+        @include adaptiv-font(15, 10);
+        text-align: center;
+        cursor: pointer;
+        width: fit-content;
+        margin-top: 3px;
+        margin-left: 5px;
+      }
+
+    }
+
+    .hand-item {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      margin-top: 3%;
+
+      .border {
+        width: 10%;
+        background-color: #ffe993;
+        height: 23px;
+        border: 2px solid black;
+        border-right: none;
+      }
+
+      .spooky {
+        position: relative;
+        width: 10%;
+        height: 32px;
+        background-color: black;
+        border-radius: 50%;
+        border-top-left-radius: 90%;
+        border-bottom-left-radius: 90%;
+        margin-right: -10px;
+      }
     }
   }
 }
