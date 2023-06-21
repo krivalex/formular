@@ -425,6 +425,7 @@ export default {
       background-color: #fcaa51;
       border-top-right-radius: 45%;
       border-bottom-right-radius: 45%;
+      height: 30px;
 
       .fa-plus {
         @include adaptiv-font(15, 10);

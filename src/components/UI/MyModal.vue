@@ -97,16 +97,10 @@ export default {
 
 
 
-
-
-
-
-
-
-
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
   .dialog-content {
     max-width: 500px;
+    transform: scale(0.85);
   }
 
   .dialog-content {
